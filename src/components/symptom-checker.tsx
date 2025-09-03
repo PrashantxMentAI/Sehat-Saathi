@@ -54,7 +54,6 @@ export function SymptomChecker() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bot className="text-primary" />
-          AI Symptom Checker
         </CardTitle>
         <CardDescription>
           Describe your symptoms, and our AI will provide a list of potential health concerns. This is not a medical diagnosis.

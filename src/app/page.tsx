@@ -13,10 +13,10 @@ export default function Home() {
       <main className="flex-1 container mx-auto p-4 md:p-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary-foreground mb-2">
-            Welcome to HealthWise AI
+            Welcome to Al-Driven Public Health Bot
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground">
-            Your trusted partner for health information and awareness.
+            “Sehat ki sahi jaankari, Swasth jeevan ka sathi”
           </p>
         </div>
 

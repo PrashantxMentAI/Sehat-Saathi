@@ -13,7 +13,7 @@ export function Header() {
       <div className="container mx-auto flex items-center justify-between p-4">
         <div className="flex items-center gap-2">
           <HeartPulse className="h-8 w-8 text-primary" />
-          <span className="text-xl font-bold font-headline">HealthWise AI</span>
+          <span className="text-xl font-bold font-headline">Sehat Saathi</span>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
