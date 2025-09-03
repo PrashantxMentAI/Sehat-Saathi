@@ -24,9 +24,8 @@ export function Header() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>English</DropdownMenuItem>
-            <DropdownMenuItem>Español</DropdownMenuItem>
             <DropdownMenuItem>हिन्दी</DropdownMenuItem>
-            <DropdownMenuItem>Français</DropdownMenuItem>
+            <DropdownMenuItem>Punjabi</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
