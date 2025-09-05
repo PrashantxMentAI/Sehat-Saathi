@@ -4,7 +4,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Bot, User, Sparkles, Search, Thermometer, Mic, Wind } from "lucide-react";
+import { Bot, User, Sparkles, Search } from "lucide-react";
 import { symptomChecker, type SymptomCheckerOutput } from "@/ai/flows/symptom-checker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -76,14 +76,9 @@ export function SymptomChecker() {
                     <div className="relative">
                       <Textarea
                         placeholder="e.g., I have a high fever, a persistent cough, and a runny nose..."
-                        className="min-h-[120px] rounded-md shadow-inner pl-10"
+                        className="min-h-[120px] rounded-md shadow-inner"
                         {...field}
                       />
-                      <div className="absolute left-3 top-3.5 flex gap-2 text-muted-foreground">
-                        <Thermometer className="h-5 w-5" />
-                        <Mic className="h-5 w-5" />
-                        <Wind className="h-5 w-5" />
-                      </div>
                     </div>
                   </FormControl>
                   <FormMessage />
