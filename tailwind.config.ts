@@ -17,9 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['PT Sans', 'sans-serif'],
-        headline: ['PT Sans', 'sans-serif'],
-        code: ['monospace'],
+        headline: ['var(--font-poppins)', 'sans-serif'],
+        body: ['var(--font-inter)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -55,6 +54,12 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        'alert-high-bg': 'hsl(var(--alert-high-bg))',
+        'alert-high-fg': 'hsl(var(--alert-high-fg))',
+        'alert-medium-bg': 'hsl(var(--alert-medium-bg))',
+        'alert-medium-fg': 'hsl(var(--alert-medium-fg))',
+        'alert-low-bg': 'hsl(var(--alert-low-bg))',
+        'alert-low-fg': 'hsl(var(--alert-low-fg))',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',

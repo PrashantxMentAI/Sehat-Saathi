@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Image from 'next/image';
 
 const careTips = [
   {
@@ -13,49 +14,65 @@ const careTips = [
     title: "Practice Good Hand Hygiene",
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
+    image: "https://picsum.photos/300/200",
+    hint: "hand washing",
+    tip: "A simple hand wash can prevent a majority of infections."
   },
   {
     id: "healthy-diet",
     title: "Maintain a Healthy Diet",
     icon: Apple,
     content: "Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. A healthy diet helps boost your immune system and provides the energy you need to stay active and fight off infections.",
+    image: "https://picsum.photos/300/201",
+    hint: "healthy food",
+    tip: "Eating colorful fruits and vegetables ensures you get a wide range of nutrients."
   },
   {
     id: "stay-active",
     title: "Stay Physically Active",
     icon: Bike,
     content: "Engage in regular physical activity. Aim for at least 30 minutes of moderate-intensity exercise most days of the week. Exercise can help improve your overall health and well-being, and strengthen your immune system.",
+    image: "https://picsum.photos/300/202",
+    hint: "person exercising",
+    tip: "Even a brisk 30-minute walk daily can make a huge difference."
   },
 ];
 
 export function PreventiveCare() {
   return (
-    <Card>
+    <Card className="shadow-lg rounded-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-2xl font-bold">
           <ShieldCheck className="text-primary" />
           Preventive Care Information
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-base">
           Simple steps you can take to protect your health and prevent diseases.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Accordion type="single" collapsible className="w-full">
+        <div className="grid md:grid-cols-3 gap-8">
           {careTips.map((tip) => (
-            <AccordionItem value={tip.id} key={tip.id}>
-              <AccordionTrigger className="text-left">
-                <div className="flex items-center gap-3">
-                  <tip.icon className="h-5 w-5 text-primary" />
-                  <span>{tip.title}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="pl-10">
-                {tip.content}
-              </AccordionContent>
-            </AccordionItem>
+            <Card key={tip.id} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+               <Image src={tip.image} alt={tip.title} width={300} height={200} className="w-full h-40 object-cover" data-ai-hint={tip.hint} />
+               <div className="p-4">
+                  <h3 className="font-bold text-lg flex items-center gap-2 mb-2">
+                    <tip.icon className="h-6 w-6 text-primary" />
+                    <span>{tip.title}</span>
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-3">{tip.content}</p>
+                   <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger>Read More</AccordionTrigger>
+                      <AccordionContent>
+                        <p className="text-sm italic text-primary">{tip.tip}</p>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+               </div>
+            </Card>
           ))}
-        </Accordion>
+        </div>
       </CardContent>
     </Card>
   );

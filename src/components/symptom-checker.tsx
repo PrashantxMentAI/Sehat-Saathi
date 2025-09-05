@@ -4,7 +4,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Bot, User, Sparkles } from "lucide-react";
+import { Bot, User, Sparkles, Search, Thermometer, Mic, Wind } from "lucide-react";
 import { symptomChecker, type SymptomCheckerOutput } from "@/ai/flows/symptom-checker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -50,12 +50,13 @@ export function SymptomChecker() {
   }
 
   return (
-    <Card>
+    <Card className="shadow-lg rounded-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-2xl font-bold">
           <Bot className="text-primary" />
+          Symptom Checker
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-base">
           Describe your symptoms, and our AI will provide a list of potential health concerns. This is not a medical diagnosis.
         </CardDescription>
       </CardHeader>
@@ -67,24 +68,31 @@ export function SymptomChecker() {
               name="symptoms"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex items-center gap-2">
+                  <FormLabel className="flex items-center gap-2 font-semibold">
                     <User />
                     Your Symptoms
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="e.g., I have a headache, fever, and a sore throat..."
-                      className="min-h-[100px]"
-                      {...field}
-                    />
+                    <div className="relative">
+                      <Textarea
+                        placeholder="e.g., I have a high fever, a persistent cough, and a runny nose..."
+                        className="min-h-[120px] rounded-md shadow-inner pl-10"
+                        {...field}
+                      />
+                      <div className="absolute left-3 top-3.5 flex gap-2 text-muted-foreground">
+                        <Thermometer className="h-5 w-5" />
+                        <Mic className="h-5 w-5" />
+                        <Wind className="h-5 w-5" />
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
+            <Button type="submit" disabled={isLoading} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
               {isLoading ? "Analyzing..." : "Check Symptoms"}
-              {!isLoading && <Sparkles className="ml-2 h-4 w-4" />}
+              <Search className="ml-2 h-5 w-5" />
             </Button>
           </form>
         </Form>
@@ -92,24 +100,24 @@ export function SymptomChecker() {
       {(isLoading || result) && (
         <CardFooter>
           <div className="w-full">
-            <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
               <Sparkles className="text-accent" />
               Potential Concerns
             </h3>
             {isLoading ? (
               <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-4 w-4/5" />
                 <Skeleton className="h-4 w-3/5" />
-                <Skeleton className="h-4 w-2/5" />
               </div>
             ) : result ? (
-              <div className="prose prose-sm max-w-none text-card-foreground">
-                <ul className="list-disc pl-5 space-y-1">
+              <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
+                <ul className="list-disc pl-5 space-y-2">
                   {result.potentialHealthConcerns.split('\n').map((item, index) => item.trim() && (
                     <li key={index}>{item.replace(/^- /, '').trim()}</li>
                   ))}
                 </ul>
-                <p className="text-xs text-muted-foreground mt-4">
+                <p className="text-xs text-muted-foreground mt-4 p-2 bg-yellow-100/50 dark:bg-yellow-900/30 rounded-md border-l-4 border-yellow-400">
                   <strong>Disclaimer:</strong> This is an AI-generated list and not a substitute for professional medical advice. Please consult a healthcare provider for any health concerns.
                 </p>
               </div>

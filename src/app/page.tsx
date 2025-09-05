@@ -5,26 +5,61 @@ import { PreventiveCare } from "@/components/preventive-care";
 import { VaccinationSchedule } from "@/components/vaccination-schedule";
 import { HealthAlerts } from "@/components/health-alerts";
 import { ContactChannels } from "@/components/contact-channels";
+import { Faq } from "@/components/faq";
+import Image from "next/image";
+import { HeartPulse, Syringe, Stethoscope, Zap } from "lucide-react";
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       <Header />
-      <main className="flex-1 container mx-auto p-4 md:p-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary-foreground mb-2">
-            Welcome to Al-Driven Public Health Bot
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            “Sehat ki sahi jaankari, Swasth jeevan ka sathi”
-          </p>
-        </div>
+      <main className="flex-1">
+        <section className="relative bg-gradient-to-r from-blue-100 via-green-50 to-green-100 dark:from-blue-900/30 dark:via-green-900/30 dark:to-green-900/50 py-20 px-4">
+          <div className="absolute top-0 left-0 w-full h-full opacity-20">
+             {/* Abstract shapes can go here */}
+          </div>
+          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center relative">
+            <div className="text-center md:text-left">
+              <h1 className="text-4xl md:text-5xl font-bold font-headline text-gray-800 dark:text-white mb-4">
+                Welcome to{" "}
+                <span className="text-green-600 dark:text-green-400">AI-Driven</span> Public{" "}
+                <span className="text-blue-800 dark:text-blue-400">Health Bot</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
+                “Sehat ki sahi jaankari, Swasth jeevan ka sathi”
+              </p>
+               <div className="mt-8 flex justify-center md:justify-start space-x-4">
+                <div className="p-3 bg-white/50 rounded-full shadow-md heartbeat">
+                  <HeartPulse className="h-8 w-8 text-red-500" />
+                </div>
+                <div className="p-3 bg-white/50 rounded-full shadow-md">
+                  <Stethoscope className="h-8 w-8 text-blue-600" />
+                </div>
+                <div className="p-3 bg-white/50 rounded-full shadow-md">
+                   <Syringe className="h-8 w-8 text-green-600" />
+                </div>
+              </div>
+            </div>
+            <div>
+              <Image
+                src="https://picsum.photos/600/400"
+                alt="Doctor and patient illustration"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-2xl"
+                data-ai-hint="doctor patient illustration"
+              />
+            </div>
+          </div>
+        </section>
 
-        <div className="grid gap-8">
+        <div className="container mx-auto p-4 md:p-8 grid gap-12">
           <SymptomChecker />
           <HealthAlerts />
           <PreventiveCare />
           <VaccinationSchedule />
+          <Faq />
           <ContactChannels />
         </div>
       </main>
