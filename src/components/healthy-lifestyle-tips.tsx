@@ -20,7 +20,7 @@ export default function HealthyLifestyleTips() {
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Children */}
-          <Card className="rounded-2xl shadow-md hover:shadow-lg transition">
+          <Card className="rounded-2xl shadow-md hover:shadow-lg transition bg-amber-50 dark:bg-amber-900/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-green-600">
                 <Baby className="w-5 h-5" /> Children (0–12 yrs)
@@ -36,7 +36,7 @@ export default function HealthyLifestyleTips() {
           </Card>
 
           {/* Adults */}
-          <Card className="rounded-2xl shadow-md hover:shadow-lg transition">
+          <Card className="rounded-2xl shadow-md hover:shadow-lg transition bg-sky-100 dark:bg-sky-900/30">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-blue-600">
                 <User className="w-5 h-5" /> Adults (13–59 yrs)
@@ -52,7 +52,7 @@ export default function HealthyLifestyleTips() {
           </Card>
 
           {/* Older Adults */}
-          <Card className="rounded-2xl shadow-md hover:shadow-lg transition">
+          <Card className="rounded-2xl shadow-md hover:shadow-lg transition bg-red-100 dark:bg-red-900/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-purple-600">
                 <HeartPulse className="w-5 h-5" /> Older Adults (60+ yrs)
