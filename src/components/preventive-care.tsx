@@ -23,7 +23,7 @@ const careTips = [
     title: "Maintain a Healthy Diet",
     icon: Apple,
     content: "Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. A healthy diet helps boost your immune system and provides the energy you need to stay active and fight off infections.",
-    image: "https://picsum.photos/300/201",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxEaWV0fGVufDB8fHx8MTc1NzA5NTY4M3ww&ixlib=rb-4.1.0&q=80&w=1080",
     hint: "healthy meal",
     tip: "Eating colorful fruits and vegetables ensures you get a wide range of nutrients."
   },
