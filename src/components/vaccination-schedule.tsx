@@ -45,7 +45,6 @@ export function VaccinationSchedule() {
             {schedule.map((item, index) => (
               <div key={index} className="relative flex items-start gap-6">
                 <div className="absolute left-12 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-background p-1 rounded-full">
-                  <item.icon className="h-8 w-8 text-primary" />
                 </div>
                 <div className="w-24 text-right pr-6 shrink-0">
                     <p className="font-bold text-lg text-primary">{item.stage}</p>
