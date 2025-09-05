@@ -14,7 +14,7 @@ const careTips = [
     title: "Practice Good Hand Hygiene",
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
-    image: "https://images.unsplash.com/photo-1556229167-7ed11195e641?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8R29vZCUyMGh5Z2llbmUlMjAtJTIwYSUyMGdyZWF0JTIwaGFiaXQlMjBzdG9jayUyMHBob3RvJTIwV2FzaGluZyUyMEhhbmRzJTJDJTIwSHlnaWVuZSUyQyUyMFNvYXAlMjBTdWQlMkMlMjBDbGVhbmluZyUyQyUyMFBlb3BsZXxlbnwwfHx8fDE3NTcwOTU0MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1628235172251-6b87dab144b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxHb29kJTIwaHlnaWVuZSUyMC0lMjBhJTIwZ3JlYXQlMjBoYWJpdCUyMHN0b2NrJTIwcGhvdG8lMjBXYXNoaW5nJTIwSGFuZHMlMkMlMjBIeWdpZW5lJTJDJTIwU29hcCUyMFN1ZCUyQyUyMENsZWFuaW5nJTJDJTIwUGVvcGxlfGVufDB8fHx8MTc1NzA5NTQyMnww&ixlib=rb-4.1.0&q=80&w=1080",
     hint: "hands washing",
     tip: "A simple hand wash can prevent a majority of infections."
   },
