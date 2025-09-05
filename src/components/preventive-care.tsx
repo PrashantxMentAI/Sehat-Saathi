@@ -14,8 +14,8 @@ const careTips = [
     title: "Practice Good Hand Hygiene",
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
-    image: "https://picsum.photos/300/200",
-    hint: "hands washing",
+    image: "https://storage.googleapis.com/maker-studio-project-416112/user/c62463e0-639a-4c28-98e9-d7bce72a0889/generations/1a90c1f6-a36c-4861-91a9-34b7f4cf17f7.jpeg",
+    hint: "A close-up, brightly lit, and realistic photo of hands being thoroughly washed with soap and water under a running tap. The hands should be visibly lathered with soap, and the water should appear clean. The background should be a clean, modern bathroom setting, emphasizing hygiene. The overall feel should be fresh and educational.",
     tip: "A simple hand wash can prevent a majority of infections."
   },
   {
@@ -24,7 +24,7 @@ const careTips = [
     icon: Apple,
     content: "Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. A healthy diet helps boost your immune system and provides the energy you need to stay active and fight off infections.",
     image: "https://picsum.photos/300/201",
-    hint: "healthy meal",
+    hint: "A vibrant, high-angle, realistic photo of a colorful and balanced meal spread on a light wooden table. The meal should include a variety of fresh fruits (like berries or apples), vegetables (like leafy greens or bell peppers), lean protein (like grilled chicken or fish), and whole grains (like quinoa or brown rice). The lighting should be natural and inviting, making the food look appealing and healthy.",
     tip: "Eating colorful fruits and vegetables ensures you get a wide range of nutrients."
   },
   {
@@ -33,7 +33,7 @@ const careTips = [
     icon: Bike,
     content: "Engage in regular physical activity. Aim for at least 30 minutes of moderate-intensity exercise most days of the week. Exercise can help improve your overall health and well-being, and strengthen your immune system.",
     image: "https://picsum.photos/300/202",
-    hint: "person jogging",
+    hint: "A dynamic, realistic photo of a person engaged in moderate physical activity outdoors. This could be someone jogging on a scenic path, stretching in a park, or cycling with a joyful expression. The setting should be natural and inspiring, with good lighting that conveys energy and well-being. The focus should be on promoting general physical activity, not extreme sports.",
     tip: "Even a brisk 30-minute walk daily can make a huge difference."
   },
 ];
