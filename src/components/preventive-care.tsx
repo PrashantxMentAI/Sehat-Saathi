@@ -15,7 +15,7 @@ const careTips = [
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
     image: "https://picsum.photos/300/200",
-    hint: "child handwashing",
+    hint: "hands washing",
     tip: "A simple hand wash can prevent a majority of infections."
   },
   {
@@ -24,7 +24,7 @@ const careTips = [
     icon: Apple,
     content: "Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. A healthy diet helps boost your immune system and provides the energy you need to stay active and fight off infections.",
     image: "https://picsum.photos/300/201",
-    hint: "healthy food",
+    hint: "healthy meal",
     tip: "Eating colorful fruits and vegetables ensures you get a wide range of nutrients."
   },
   {
@@ -33,7 +33,7 @@ const careTips = [
     icon: Bike,
     content: "Engage in regular physical activity. Aim for at least 30 minutes of moderate-intensity exercise most days of the week. Exercise can help improve your overall health and well-being, and strengthen your immune system.",
     image: "https://picsum.photos/300/202",
-    hint: "person exercising",
+    hint: "person jogging",
     tip: "Even a brisk 30-minute walk daily can make a huge difference."
   },
 ];
