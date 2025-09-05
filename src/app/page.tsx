@@ -4,6 +4,7 @@ import { SymptomChecker } from "@/components/symptom-checker";
 import { PreventiveCare } from "@/components/preventive-care";
 import { VaccinationSchedule } from "@/components/vaccination-schedule";
 import { HealthAlerts } from "@/components/health-alerts";
+import HealthyLifestyleTips from "@/components/healthy-lifestyle-tips";
 import { ContactChannels } from "@/components/contact-channels";
 import { Faq } from "@/components/faq";
 import Image from "next/image";
@@ -47,6 +48,7 @@ export default function Home() {
         <div className="container mx-auto p-4 md:p-8 grid gap-12">
           <SymptomChecker />
           <HealthAlerts />
+          <HealthyLifestyleTips />
           <PreventiveCare />
           <VaccinationSchedule />
           <Faq />
