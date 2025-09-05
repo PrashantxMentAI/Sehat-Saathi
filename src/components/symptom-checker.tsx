@@ -92,8 +92,8 @@ export function SymptomChecker() {
         <CardFooter>
           <div className="w-full">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <Sparkles className="text-accent" />
-              Potential Concerns
+              <Bot className="text-accent" />
+              Possible Causes
             </h3>
             {isLoading ? (
               <div className="space-y-2">
