@@ -14,7 +14,7 @@ const careTips = [
     title: "Practice Good Hand Hygiene",
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
-    image: "https://storage.googleapis.com/maker-studio-project-416112/user/c62463e0-639a-4c28-98e9-d7bce72a0889/generations/1a90c1f6-a36c-4861-91a9-34b7f4cf17f7.jpeg",
+    image: "https://storage.googleapis.com/maker-studio-project-416112/user/e8c89b4c-9f82-4f47-8a90-34907954e718/generations/32bb649c-f941-4c62-8178-36c1e5a51963.jpeg",
     hint: "A close-up, brightly lit, and realistic photo of hands being thoroughly washed with soap and water under a running tap. The hands should be visibly lathered with soap, and the water should appear clean. The background should be a clean, modern bathroom setting, emphasizing hygiene. The overall feel should be fresh and educational.",
     tip: "A simple hand wash can prevent a majority of infections."
   },
