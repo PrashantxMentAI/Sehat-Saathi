@@ -53,8 +53,8 @@ export function SymptomChecker() {
     <Card className="shadow-lg rounded-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl font-bold">
-          <Bot className="text-primary" />
-          Symptom Checker
+          <User className="text-primary" />
+          Your Symptoms
         </CardTitle>
         <CardDescription className="text-base">
           Describe your symptoms, and our AI will provide a list of potential health concerns. This is not a medical diagnosis.
