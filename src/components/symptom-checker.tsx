@@ -72,7 +72,7 @@ export function SymptomChecker() {
                     <div className="relative">
                       <Textarea
                         placeholder="e.g., I have a high fever, a persistent cough, and a runny nose..."
-                        className="min-h-[120px] rounded-md shadow-inner"
+                        className="min-h-[100px] rounded-md shadow-inner"
                         {...field}
                       />
                     </div>
