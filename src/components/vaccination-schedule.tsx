@@ -38,9 +38,6 @@ export function VaccinationSchedule() {
       </CardHeader>
       <CardContent>
         <div className="relative pl-8">
-          {/* Vertical timeline line */}
-          <div className="absolute left-12 top-0 bottom-0 w-0.5 bg-border"></div>
-
           <div className="space-y-10">
             {schedule.map((item, index) => (
               <div key={index} className="relative flex items-start gap-6">
