@@ -32,7 +32,7 @@ const careTips = [
     title: "Stay Physically Active",
     icon: Bike,
     content: "Engage in regular physical activity. Aim for at least 30 minutes of moderate-intensity exercise most days of the week. Exercise can help improve your overall health and well-being, and strengthen your immune system.",
-    image: "https://images.unsplash.com/photo-1578704311507-15aa141d9a8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOXx8U3RheSUyMFBoeXNpY2FsbHklMjBBY3RpdmV8ZW58MHx8fHwxNzU3MDk1NzU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1650501890232-886c08e79a27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8JTIwUGh5c2ljYWxseSUyMEFjdGl2ZSUyMGdpcmx8ZW58MHx8fHwxNzU3MDk1OTEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
     hint: "person jogging",
     tip: "Even a brisk 30-minute walk daily can make a huge difference."
   },
