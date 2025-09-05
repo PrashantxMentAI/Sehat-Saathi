@@ -15,7 +15,7 @@ const careTips = [
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
     image: "https://storage.googleapis.com/maker-studio-project-416112/user/e8c89b4c-9f82-4f47-8a90-34907954e718/generations/c1995255-a9a3-485e-a6a1-9a7c646c263c.jpeg",
-    hint: "A realistic photo of a young child (around 6–10 years old) washing hands with soap and water at a sink. The setting should look bright, clean, and hygienic, with water running from the tap. The child should appear happy and healthy, showing good handwashing practice. The photo should promote hygiene awareness, with natural lighting and a positive, educational atmosphere.",
+    hint: "A close-up, brightly lit, realistic photo of hands being thoroughly washed with soap and water under a running tap. The hands should be covered with soap lather, with clear water running down. The background should be a clean, modern bathroom sink, emphasizing freshness and hygiene. Educational and health-focused style.",
     tip: "A simple hand wash can prevent a majority of infections."
   },
   {
@@ -24,7 +24,7 @@ const careTips = [
     icon: Apple,
     content: "Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. A healthy diet helps boost your immune system and provides the energy you need to stay active and fight off infections.",
     image: "https://storage.googleapis.com/maker-studio-project-416112/user/e8c89b4c-9f82-4f47-8a90-34907954e718/generations/c516f467-3392-4881-8318-a664e4889c8a.jpeg",
-    hint: "A vibrant, high-angle, realistic photo of a colorful and balanced meal spread on a light wooden table. The meal should include a variety of fresh fruits (like berries or apples), vegetables (like leafy greens or bell peppers), lean protein (like grilled chicken or fish), and whole grains (like quinoa or brown rice). The lighting should be natural and inviting, making the food look appealing and healthy.",
+    hint: "A vibrant, high-angle, realistic photo of a colorful and balanced meal on a wooden table. The spread should include fresh fruits (berries, apples, oranges), vegetables (leafy greens, carrots, bell peppers), lean proteins (grilled chicken or salmon), and whole grains (quinoa or brown rice). Natural daylight, bright and inviting, emphasizing health and balance.",
     tip: "Eating colorful fruits and vegetables ensures you get a wide range of nutrients."
   },
   {
@@ -33,7 +33,7 @@ const careTips = [
     icon: Bike,
     content: "Engage in regular physical activity. Aim for at least 30 minutes of moderate-intensity exercise most days of the week. Exercise can help improve your overall health and well-being, and strengthen your immune system.",
     image: "https://picsum.photos/300/202",
-    hint: "A dynamic, realistic photo of a person engaged in moderate physical activity outdoors. This could be someone jogging on a scenic path, stretching in a park, or cycling with a joyful expression. The setting should be natural and inspiring, with good lighting that conveys energy and well-being. The focus should be on promoting general physical activity, not extreme sports.",
+    hint: "A dynamic, realistic photo of a young adult jogging in a scenic park with greenery and sunlight. The person should look healthy and joyful, wearing casual sportswear. Background should be natural and refreshing, conveying energy, vitality, and overall well-being.",
     tip: "Even a brisk 30-minute walk daily can make a huge difference."
   },
 ];
