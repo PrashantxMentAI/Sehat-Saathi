@@ -19,17 +19,17 @@ export default function Home() {
           <div className="absolute top-0 left-0 w-full h-full opacity-20">
              {/* Abstract shapes can go here */}
           </div>
-          <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center relative">
-            <div className="text-center md:text-left">
+          <div className="container mx-auto grid grid-cols-1 items-center relative">
+            <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold font-headline text-gray-800 dark:text-white mb-4">
                 Welcome to{" "}
-                <span className="text-green-600 dark:text-green-400">AI-Driven</span> Public{" "}
-                <span className="text-blue-800 dark:text-blue-400">Health Bot</span>
+                <span className="text-green-600 dark:text-green-400">Sehat</span>{" "}
+                <span className="text-blue-800 dark:text-blue-400">Saathi</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
                 “Sehat ki sahi jaankari, Swasth jeevan ka sathi”
               </p>
-               <div className="mt-8 flex justify-center md:justify-start space-x-4">
+               <div className="mt-8 flex justify-center space-x-4">
                 <div className="p-3 bg-white/50 rounded-full shadow-md heartbeat">
                   <HeartPulse className="h-8 w-8 text-red-500" />
                 </div>
@@ -40,16 +40,6 @@ export default function Home() {
                    <Syringe className="h-8 w-8 text-green-600" />
                 </div>
               </div>
-            </div>
-            <div>
-              <Image
-                src="https://picsum.photos/600/400"
-                alt="Doctor and patient illustration"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-2xl"
-                data-ai-hint="doctor patient illustration"
-              />
             </div>
           </div>
         </section>
