@@ -37,22 +37,20 @@ export function VaccinationSchedule() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="relative pl-8">
-          <div className="space-y-10">
-            {schedule.map((item, index) => (
-              <div key={index} className="relative flex items-center gap-6">
-                <p className="w-24 shrink-0 -translate-x-20 text-right font-bold text-lg text-primary">{item.stage}</p>
-                <div className="flex-1 rounded-lg border bg-card text-card-foreground shadow-sm p-4">
-                  <h4 className="font-semibold mb-2">Recommended Vaccines:</h4>
-                   <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                      {item.vaccines.map((vaccine, vIndex) => (
-                        <li key={vIndex}>{vaccine}</li>
-                      ))}
-                   </ul>
-                </div>
+        <div className="space-y-10">
+          {schedule.map((item, index) => (
+            <div key={index} className="relative flex items-center gap-4">
+              <p className="w-24 shrink-0 text-right font-bold text-lg text-primary">{item.stage}</p>
+              <div className="flex-1 rounded-lg border bg-card text-card-foreground shadow-sm p-4">
+                <h4 className="font-semibold mb-2">Recommended Vaccines:</h4>
+                 <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                    {item.vaccines.map((vaccine, vIndex) => (
+                      <li key={vIndex}>{vaccine}</li>
+                    ))}
+                 </ul>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>
