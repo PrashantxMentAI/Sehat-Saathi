@@ -14,7 +14,7 @@ const careTips = [
     title: "Practice Good Hand Hygiene",
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
-    image: "https://storage.googleapis.com/maker-studio-project-416112/user/e8c89b4c-9f82-4f47-8a90-34907954e718/generations/32bb649c-f941-4c62-8178-36c1e5a51963.jpeg",
+    image: "https://storage.googleapis.com/maker-studio-project-416112/user/e8c89b4c-9f82-4f47-8a90-34907954e718/generations/a8e0dd23-3882-4c9f-937b-9c765f042e97.jpeg",
     hint: "A close-up, brightly lit, and realistic photo of hands being thoroughly washed with soap and water under a running tap. The hands should be visibly lathered with soap, and the water should appear clean. The background should be a clean, modern bathroom setting, emphasizing hygiene. The overall feel should be fresh and educational.",
     tip: "A simple hand wash can prevent a majority of infections."
   },
@@ -23,7 +23,7 @@ const careTips = [
     title: "Maintain a Healthy Diet",
     icon: Apple,
     content: "Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. A healthy diet helps boost your immune system and provides the energy you need to stay active and fight off infections.",
-    image: "https://picsum.photos/300/201",
+    image: "https://storage.googleapis.com/maker-studio-project-416112/user/e8c89b4c-9f82-4f47-8a90-34907954e718/generations/c516f467-3392-4881-8318-a664e4889c8a.jpeg",
     hint: "A vibrant, high-angle, realistic photo of a colorful and balanced meal spread on a light wooden table. The meal should include a variety of fresh fruits (like berries or apples), vegetables (like leafy greens or bell peppers), lean protein (like grilled chicken or fish), and whole grains (like quinoa or brown rice). The lighting should be natural and inviting, making the food look appealing and healthy.",
     tip: "Eating colorful fruits and vegetables ensures you get a wide range of nutrients."
   },
