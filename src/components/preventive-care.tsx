@@ -15,7 +15,7 @@ const careTips = [
     icon: HandHeart,
     content: "Wash your hands frequently with soap and water for at least 20 seconds, especially after being in public places, or after blowing your nose, coughing, or sneezing. If soap and water are not readily available, use a hand sanitizer that contains at least 60% alcohol.",
     image: "https://picsum.photos/300/200",
-    hint: "hand washing",
+    hint: "child handwashing",
     tip: "A simple hand wash can prevent a majority of infections."
   },
   {
