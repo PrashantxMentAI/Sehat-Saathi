@@ -18,7 +18,7 @@ const faqs = [
   {
     id: "q2",
     question: "How accurate is the symptom checker?",
-    answer: "The symptom checker is an AI-powered tool designed to provide potential health concerns based on the symptoms you provide. It is not a diagnostic tool and should not be used as a substitute for a consultation with a qualified healthcare professional. The accuracy depends on the information you provide and the underlying data.",
+    answer: "The symptom checker is an AI-powered tool designed to provide potential health concerns based on the symptoms you provide. <strong class='text-primary'>It is not a diagnostic tool and should not be used as a substitute for a consultation with a qualified healthcare professional.</strong> The accuracy depends on the information you provide and the underlying data.",
   },
   {
     id: "q3",
@@ -44,7 +44,7 @@ export function Faq() {
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-base text-muted-foreground pt-2">
-                {faq.answer}
+                <p dangerouslySetInnerHTML={{ __html: faq.answer }}></p>
               </AccordionContent>
             </AccordionItem>
           ))}
