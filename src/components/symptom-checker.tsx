@@ -68,10 +68,6 @@ export function SymptomChecker() {
               name="symptoms"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex items-center gap-2 font-semibold">
-                    <User />
-                    Your Symptoms
-                  </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Textarea
