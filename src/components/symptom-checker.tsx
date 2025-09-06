@@ -57,7 +57,7 @@ export function SymptomChecker() {
           Your Symptoms
         </CardTitle>
         <CardDescription className="text-base">
-          Describe your symptoms, and our AI will provide a list of potential health concerns. This is not a medical diagnosis.
+          This tool provides general health information, not a medical diagnosis. Please consult a qualified doctor for medical advice.
         </CardDescription>
       </CardHeader>
       <CardContent>
