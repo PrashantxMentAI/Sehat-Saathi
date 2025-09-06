@@ -16,7 +16,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
-        <section className="relative bg-gradient-to-r from-[#E57373]/60 via-[#F5F5F5]/60 to-[#4DB6AC]/40 dark:from-red-900/30 dark:via-gray-900/30 dark:to-teal-900/50 py-20 px-4">
+        <section className="relative bg-gradient-to-r from-[#E57373]/80 via-[#F5F5F5]/60 to-[#4DB6AC]/60 dark:from-red-900/30 dark:via-gray-900/30 dark:to-teal-900/50 py-20 px-4">
           <div className="absolute top-0 left-0 w-full h-full opacity-20">
              {/* Abstract shapes can go here */}
           </div>
@@ -24,7 +24,7 @@ export default function Home() {
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold font-headline text-gray-800 dark:text-white mb-4">
                 Welcome to{" "}
-                <span className="text-green-600 dark:text-green-400">Sehat</span>{" "}
+                <span className="text-white" style={{ textShadow: '0px 0px 5px rgba(0,0,0,0.5)' }}>Sehat</span>{" "}
                 <span className="text-blue-800 dark:text-blue-400">Saathi</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
