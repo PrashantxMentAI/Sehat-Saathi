@@ -15,7 +15,7 @@ import { useLanguage } from "@/contexts/language-context";
 
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
@@ -27,7 +27,34 @@ export default function Home() {
           <div className="container mx-auto grid grid-cols-1 items-center relative">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold font-headline text-gray-800 dark:text-white mb-4">
-                {t.welcome}
+                {language === 'en' ? (
+                  <>
+                    {t.welcome_prefix}{' '}
+                    <span
+                      style={{
+                        color: 'white',
+                        textShadow:
+                          '0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000',
+                      }}
+                    >
+                      Sehat
+                    </span>{' '}
+                    Saathi
+                  </>
+                ) : (
+                  <>
+                    <span
+                      style={{
+                        color: 'white',
+                        textShadow:
+                          '0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000',
+                      }}
+                    >
+                      सेहत
+                    </span>{' '}
+                    {t.welcome_suffix}
+                  </>
+                )}
               </h1>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
                 {t.tagline}
