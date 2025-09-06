@@ -39,7 +39,7 @@ export default function Home() {
                     >
                       Sehat
                     </span>{' '}
-                    Saathi
+                    <span style={{ color: '#FF0000' }}>Saathi</span>
                   </>
                 ) : (
                   <>
