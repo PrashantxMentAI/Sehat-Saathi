@@ -21,7 +21,7 @@ export function DailyHealthTip() {
   }
 
   return (
-    <div className="bg-primary/10 text-primary-foreground dark:bg-primary/20 p-3 rounded-lg shadow-md text-center font-medium">
+    <div className="bg-primary/10 text-primary dark:text-primary-foreground/90 dark:bg-primary/20 p-3 rounded-lg shadow-md text-center font-medium">
       <p>
         <span className="font-bold">{t.daily_tip_title}</span> {tip}
       </p>
