@@ -12,17 +12,19 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-
-const formSchema = z.object({
-  symptoms: z.string().min(10, {
-    message: "Please describe your symptoms in at least 10 characters.",
-  }),
-});
+import { useLanguage } from "@/contexts/language-context";
 
 export function SymptomChecker() {
+  const { t } = useLanguage();
   const [result, setResult] = useState<SymptomCheckerOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  const formSchema = z.object({
+    symptoms: z.string().min(10, {
+      message: t.symptoms_error,
+    }),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,10 +56,10 @@ export function SymptomChecker() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl font-bold">
           <User className="text-primary" />
-          Your Symptoms
+          {t.symptoms}
         </CardTitle>
         <CardDescription className="text-base">
-          This tool provides general health information, not a medical diagnosis. Please consult a qualified doctor for medical advice.
+          {t.symptoms_description}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -71,7 +73,7 @@ export function SymptomChecker() {
                   <FormControl>
                     <div className="relative">
                       <Textarea
-                        placeholder="e.g., I have a high fever, a persistent cough, and a runny nose..."
+                        placeholder={t.symptoms_placeholder}
                         className="min-h-[100px] rounded-md shadow-inner"
                         {...field}
                       />
@@ -82,7 +84,7 @@ export function SymptomChecker() {
               )}
             />
             <Button type="submit" disabled={isLoading} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
-              {isLoading ? "Analyzing..." : "Check Symptoms"}
+              {isLoading ? t.analyzing : t.check_symptoms}
               <Search className="ml-2 h-5 w-5" />
             </Button>
           </form>
@@ -93,7 +95,7 @@ export function SymptomChecker() {
           <div className="w-full">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
               <Bot className="text-accent" />
-              Possible Causes
+              {t.possible_causes}
             </h3>
             {isLoading ? (
               <div className="space-y-2">
@@ -109,7 +111,7 @@ export function SymptomChecker() {
                   ))}
                 </ul>
                 <p className="text-xs text-muted-foreground mt-4 p-2 bg-yellow-100/50 dark:bg-yellow-900/30 rounded-md border-l-4 border-yellow-400">
-                  <strong>Disclaimer:</strong> This is an AI-generated list and not a substitute for professional medical advice. Please consult a healthcare provider for any health concerns.
+                  <strong>{t.disclaimer.split(':')[0]}:</strong> {t.disclaimer.split(':')[1]}
                 </p>
               </div>
             ) : null}

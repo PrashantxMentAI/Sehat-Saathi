@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { Poppins, Inter } from 'next/font/google';
+import { LanguageProvider } from '@/contexts/language-context';
 
 export const metadata: Metadata = {
   title: 'Sehat Saathi',
@@ -27,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} ${inter.variable} font-body antialiased`}>
-        {children}
-        <Toaster />
+        <LanguageProvider>
+          {children}
+          <Toaster />
+        </LanguageProvider>
       </body>
     </html>
   );

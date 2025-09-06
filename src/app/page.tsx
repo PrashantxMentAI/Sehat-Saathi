@@ -1,3 +1,5 @@
+"use client";
+
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SymptomChecker } from "@/components/symptom-checker";
@@ -9,9 +11,11 @@ import { ContactChannels } from "@/components/contact-channels";
 import { Faq } from "@/components/faq";
 import Image from "next/image";
 import { HeartPulse, Syringe, Stethoscope, Zap } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
 
 
 export default function Home() {
+  const { t } = useLanguage();
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
@@ -23,12 +27,10 @@ export default function Home() {
           <div className="container mx-auto grid grid-cols-1 items-center relative">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold font-headline text-gray-800 dark:text-white mb-4">
-                Welcome to{" "}
-                <span className="text-white" style={{ textShadow: '0 0 2px #000, 0 0 5px #000' }}>Sehat</span>{" "}
-                <span style={{ color: '#D32F2F' }}>Saathi</span>
+                {t.welcome}
               </h1>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
-                “Sehat ki sahi jaankari, Swasth jeevan ka sathi”
+                {t.tagline}
               </p>
                <div className="mt-8 flex justify-center space-x-4">
                 <div className="p-3 bg-white/50 rounded-full shadow-md heartbeat">

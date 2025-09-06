@@ -1,45 +1,9 @@
+"use client";
+
 import { Siren, TriangleAlert, ShieldAlert } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-const alerts = [
-  {
-    id: 1,
-    title: "Flu Season Peak",
-    area: "National",
-    description: "An increase in influenza cases has been reported nationwide. Ensure you are vaccinated.",
-    severity: "High",
-    tip: "Practice good respiratory hygiene (cover coughs/sneezes), and avoid close contact with sick individuals.",
-    source: "WHO Influenza Updates",
-  },
-  {
-    id: 2,
-    title: "Dengue Outbreak",
-    area: "Semi-Urban Regions",
-    description: "Mosquito-borne dengue fever cases are on the rise. Eliminate stagnant water sources.",
-    severity: "Medium",
-    tip: "Use mosquito repellents, wear long sleeves, and eliminate stagnant water around your home to reduce mosquito breeding.",
-    source: "Govt. Health Data (IDSP)",
-  },
-  {
-    id: 3,
-    title: "Measles Cluster",
-    area: "Rural District X",
-    description: "A small cluster of measles has been identified. Check vaccination status for children.",
-    severity: "High",
-    tip: "Ensure children are fully vaccinated with the MMR vaccine and avoid exposure to individuals showing measles symptoms.",
-    source: "District Health Office",
-  },
-   {
-    id: 4,
-    title: "Heatwave Advisory",
-    area: "All Regions",
-    description: "Temperatures are expected to be higher than usual. Stay hydrated and avoid outdoor activities during peak hours.",
-    severity: "Low",
-    tip: "Drink plenty of water, wear light clothing, and stay in the shade during the hottest parts of the day.",
-    source: "IMD Weather Reports",
-  },
-];
+import { useLanguage } from "@/contexts/language-context";
 
 const severityConfig = {
   High: {
@@ -66,15 +30,56 @@ const severityConfig = {
 } as const;
 
 export function HealthAlerts() {
+  const { t } = useLanguage();
+
+  const alerts = [
+    {
+      id: 1,
+      title: t.flu,
+      area: t.national,
+      description: t.flu_desc,
+      severity: "High",
+      tip: "Practice good respiratory hygiene (cover coughs/sneezes), and avoid close contact with sick individuals.",
+      source: "WHO Influenza Updates",
+    },
+    {
+      id: 2,
+      title: t.dengue,
+      area: t.semi_urban,
+      description: t.dengue_desc,
+      severity: "Medium",
+      tip: "Use mosquito repellents, wear long sleeves, and eliminate stagnant water around your home to reduce mosquito breeding.",
+      source: "Govt. Health Data (IDSP)",
+    },
+    {
+      id: 3,
+      title: t.measles,
+      area: t.rural_district,
+      description: t.measles_desc,
+      severity: "High",
+      tip: "Ensure children are fully vaccinated with the MMR vaccine and avoid exposure to individuals showing measles symptoms.",
+      source: "District Health Office",
+    },
+     {
+      id: 4,
+      title: t.heatwave,
+      area: t.all_regions,
+      description: t.heatwave_desc,
+      severity: "Low",
+      tip: "Drink plenty of water, wear light clothing, and stay in the shade during the hottest parts of the day.",
+      source: "IMD Weather Reports",
+    },
+  ];
+
   return (
     <Card className="shadow-lg rounded-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl font-bold">
           <Siren className="text-destructive" />
-          Real-Time Health Alerts
+          {t.alerts}
         </CardTitle>
         <CardDescription className="text-base">
-          Stay informed about health advisories and outbreaks in your area.
+          {t.alerts_description}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -89,7 +94,7 @@ export function HealthAlerts() {
                    <div className="flex-grow">
                      <h4 className="font-bold text-lg">{alert.title}</h4>
                      <p className="text-sm opacity-80">
-                      <strong>Area:</strong> {alert.area}
+                      <strong>{t.area}:</strong> {alert.area}
                     </p>
                    </div>
                    <Badge variant={config.badge}>{alert.severity}</Badge>
