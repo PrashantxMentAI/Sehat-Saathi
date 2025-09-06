@@ -16,7 +16,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
-        <section className="relative bg-gradient-to-r from-[#eaf2fa] via-[#f5f5f5] to-[#eaf6ef] dark:from-blue-900/30 dark:via-gray-900/30 dark:to-green-900/50 py-20 px-4">
+        <section className="relative bg-gradient-to-r from-[#fbebee] via-[#f5f5f5] to-[#ebf7f6] dark:from-red-900/30 dark:via-gray-900/30 dark:to-teal-900/50 py-20 px-4">
           <div className="absolute top-0 left-0 w-full h-full opacity-20">
              {/* Abstract shapes can go here */}
           </div>
