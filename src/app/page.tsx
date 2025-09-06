@@ -24,7 +24,7 @@ export default function Home() {
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold font-headline text-gray-800 dark:text-white mb-4">
                 Welcome to{" "}
-                <span className="text-white" style={{ textShadow: '0px 0px 5px rgba(0,0,0,0.5)' }}>Sehat</span>{" "}
+                <span className="text-white" style={{ textShadow: '0 0 2px #000, 0 0 5px #000' }}>Sehat</span>{" "}
                 <span style={{ color: '#D32F2F' }}>Saathi</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
