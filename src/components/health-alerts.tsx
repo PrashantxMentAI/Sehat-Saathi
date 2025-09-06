@@ -87,7 +87,7 @@ export function HealthAlerts() {
                    <Badge variant={config.badge}>{alert.severity}</Badge>
                 </div>
                 <p className="text-sm">{alert.description}</p>
-                 <p className="text-xs italic opacity-70 mt-2">Tip: Wash your hands frequently to prevent the spread of germs.</p>
+                 <p className="text-xs italic opacity-70 mt-2">Tip: Practice good respiratory hygiene (cover coughs/sneezes), and avoid close contact with sick individuals.</p>
               </div>
             );
           })}
