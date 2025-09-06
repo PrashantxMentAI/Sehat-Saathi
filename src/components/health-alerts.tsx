@@ -10,6 +10,7 @@ const alerts = [
     description: "An increase in influenza cases has been reported nationwide. Ensure you are vaccinated.",
     severity: "High",
     tip: "Practice good respiratory hygiene (cover coughs/sneezes), and avoid close contact with sick individuals.",
+    source: "WHO Influenza Updates",
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ const alerts = [
     description: "Mosquito-borne dengue fever cases are on the rise. Eliminate stagnant water sources.",
     severity: "Medium",
     tip: "Use mosquito repellents, wear long sleeves, and eliminate stagnant water around your home to reduce mosquito breeding.",
+    source: "Govt. Health Data (IDSP)",
   },
   {
     id: 3,
@@ -26,6 +28,7 @@ const alerts = [
     description: "A small cluster of measles has been identified. Check vaccination status for children.",
     severity: "High",
     tip: "Ensure children are fully vaccinated with the MMR vaccine and avoid exposure to individuals showing measles symptoms.",
+    source: "District Health Office",
   },
    {
     id: 4,
@@ -34,6 +37,7 @@ const alerts = [
     description: "Temperatures are expected to be higher than usual. Stay hydrated and avoid outdoor activities during peak hours.",
     severity: "Low",
     tip: "Drink plenty of water, wear light clothing, and stay in the shade during the hottest parts of the day.",
+    source: "IMD Weather Reports",
   },
 ];
 
@@ -90,8 +94,11 @@ export function HealthAlerts() {
                    </div>
                    <Badge variant={config.badge}>{alert.severity}</Badge>
                 </div>
-                <p className="text-sm">{alert.description}</p>
+                <p className="text-sm flex-grow">{alert.description}</p>
                  <p className="text-xs italic opacity-70 mt-2">Tip: {alert.tip}</p>
+                 <p className="text-xs italic text-right opacity-60 mt-2">
+                    Source: {alert.source}
+                  </p>
               </div>
             );
           })}
