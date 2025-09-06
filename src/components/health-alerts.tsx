@@ -25,7 +25,7 @@ const alerts = [
     area: "Rural District X",
     description: "A small cluster of measles has been identified. Check vaccination status for children.",
     severity: "High",
-    tip: "Ensure children are up-to-date with their MMR vaccinations.",
+    tip: "Ensure children are fully vaccinated with the MMR vaccine and avoid exposure to individuals showing measles symptoms.",
   },
    {
     id: 4,
