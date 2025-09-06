@@ -52,7 +52,7 @@
     "heatwave_source": "IMD Weather Reports",
     "national": "National",
     "semi_urban": "Semi-Urban Regions",
-    "rural_district": "Rural District X",
+    "rural_district": "Rural District",
     "all_regions": "All Regions",
 
     "lifestyle_title": "Healthy Lifestyle Tips",
@@ -162,7 +162,7 @@
     "heatwave_source": "आईएमडी मौसम रिपोर्ट",
     "national": "राष्ट्रीय",
     "semi_urban": "अर्ध-शहरी क्षेत्र",
-    "rural_district": "ग्रामीण जिला एक्स",
+    "rural_district": "ग्रामीण जिला",
     "all_regions": "सभी क्षेत्र",
 
     "lifestyle_title": "स्वस्थ जीवन शैली युक्तियाँ",
