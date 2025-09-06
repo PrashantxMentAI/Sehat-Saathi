@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,7 @@ export function Header() {
     <header className="bg-card shadow-sm sticky top-0 z-40">
       <div className="container mx-auto flex items-center justify-between p-4">
         <div className="flex items-center gap-2">
+          <Image src="/logoo.png" alt="Sehat Saathi logo" width={32} height={32} />
           <span className="text-xl font-bold font-headline">Sehat Saathi</span>
         </div>
         <DropdownMenu>
