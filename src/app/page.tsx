@@ -52,7 +52,7 @@ export default function Home() {
                     >
                       {t.welcome_brand}
                     </span>{' '}
-                    <span style={{ color: '#C53030' }}>{t.welcome_suffix}</span>
+                    <span style={{ color: '#C53030' }}>{t.welcome_suffix}</span>{' '}
                     {t.welcome_prefix}
                   </>
                 )}
