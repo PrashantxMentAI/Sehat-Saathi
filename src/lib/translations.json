@@ -100,7 +100,8 @@
   "hi": {
     "title": "हेल्थवाइस एआई",
     "welcome_brand": "सेहत",
-    "welcome_suffix": "साथी में आपका स्वागत है",
+    "welcome_brand_hi": "साथी",
+    "welcome_suffix": " में आपका स्वागत है",
     "tagline": "“सेहत की सही जानकारी, स्वस्थ जीवन का साथी”",
     "lang_english": "English",
     "lang_hindi": "हिन्दी",

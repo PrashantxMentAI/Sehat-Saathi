@@ -52,6 +52,7 @@ export default function Home() {
                     >
                       सेहत
                     </span>{' '}
+                    <span style={{ color: '#C53030' }}>{t.welcome_brand_hi}</span>
                     {t.welcome_suffix}
                   </>
                 )}
