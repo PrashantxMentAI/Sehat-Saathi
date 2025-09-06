@@ -25,7 +25,7 @@ export function Header() {
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               <Globe className="h-4 w-4 mr-2" />
-              <span>{t.lang_english}</span>
+              <span>{language === 'en' ? t.lang_english : t.lang_hindi}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
