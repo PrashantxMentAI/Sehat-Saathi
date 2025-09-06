@@ -39,8 +39,8 @@ export function HealthAlerts() {
       area: t.national,
       description: t.flu_desc,
       severity: "High",
-      tip: "Practice good respiratory hygiene (cover coughs/sneezes), and avoid close contact with sick individuals.",
-      source: "WHO Influenza Updates",
+      tip: t.flu_tip,
+      source: t.flu_source,
     },
     {
       id: 2,
@@ -48,8 +48,8 @@ export function HealthAlerts() {
       area: t.semi_urban,
       description: t.dengue_desc,
       severity: "Medium",
-      tip: "Use mosquito repellents, wear long sleeves, and eliminate stagnant water around your home to reduce mosquito breeding.",
-      source: "Govt. Health Data (IDSP)",
+      tip: t.dengue_tip,
+      source: t.dengue_source,
     },
     {
       id: 3,
@@ -57,8 +57,8 @@ export function HealthAlerts() {
       area: t.rural_district,
       description: t.measles_desc,
       severity: "High",
-      tip: "Ensure children are fully vaccinated with the MMR vaccine and avoid exposure to individuals showing measles symptoms.",
-      source: "District Health Office",
+      tip: t.measles_tip,
+      source: t.measles_source,
     },
      {
       id: 4,
@@ -66,8 +66,8 @@ export function HealthAlerts() {
       area: t.all_regions,
       description: t.heatwave_desc,
       severity: "Low",
-      tip: "Drink plenty of water, wear light clothing, and stay in the shade during the hottest parts of the day.",
-      source: "IMD Weather Reports",
+      tip: t.heatwave_tip,
+      source: t.heatwave_source,
     },
   ];
 
@@ -100,9 +100,9 @@ export function HealthAlerts() {
                    <Badge variant={config.badge}>{alert.severity}</Badge>
                 </div>
                 <p className="text-sm flex-grow">{alert.description}</p>
-                 <p className="text-xs italic opacity-70 mt-2">Tip: {alert.tip}</p>
+                 <p className="text-xs italic opacity-70 mt-2">{t.tip}: {alert.tip}</p>
                  <p className="text-xs italic text-right opacity-60 mt-2">
-                    Source: {alert.source}
+                    {t.source}: {alert.source}
                   </p>
               </div>
             );

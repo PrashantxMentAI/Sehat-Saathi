@@ -1,39 +1,44 @@
-import { Syringe, Baby, Lollipop, PersonStanding, Users } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+"use client";
 
-const schedule = [
-  {
-    stage: "At Birth",
-    icon: Baby,
-    vaccines: ["BCG (Tuberculosis)", "Hepatitis B", "Polio (OPV)"],
-  },
-  {
-    stage: "6-14 Weeks",
-    icon: Baby,
-    vaccines: ["Polio (OPV)", "Pentavalent (DTP, Hib, Hep B)"],
-  },
-  {
-    stage: "9-12 Months",
-    icon: Lollipop,
-    vaccines: ["Measles, Mumps, Rubella (MMR)"],
-  },
-  {
-    stage: "Teenagers & Adults",
-    icon: PersonStanding,
-    vaccines: ["Tetanus and Diphtheria (Td)"],
-  },
-];
+import { Syringe, Baby, Lollipop, PersonStanding } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/language-context";
 
 export function VaccinationSchedule() {
+  const { t } = useLanguage();
+
+  const schedule = [
+    {
+      stage: t.vaccine_stage_birth,
+      icon: Baby,
+      vaccines: t.vaccine_stage_birth_vaccines,
+    },
+    {
+      stage: t.vaccine_stage_weeks,
+      icon: Baby,
+      vaccines: t.vaccine_stage_weeks_vaccines,
+    },
+    {
+      stage: t.vaccine_stage_months,
+      icon: Lollipop,
+      vaccines: t.vaccine_stage_months_vaccines,
+    },
+    {
+      stage: t.vaccine_stage_adults,
+      icon: PersonStanding,
+      vaccines: t.vaccine_stage_adults_vaccines,
+    },
+  ];
+
   return (
     <Card className="shadow-lg rounded-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl font-bold">
           <Syringe className="text-primary" />
-          Vaccination Timeline
+          {t.vaccine_title}
         </CardTitle>
         <CardDescription className="text-base">
-          A general vaccination schedule. Always consult a doctor for a personalized plan.
+          {t.vaccine_description}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -42,7 +47,7 @@ export function VaccinationSchedule() {
             <div key={index} className="relative flex items-center gap-4">
               <p className="w-24 shrink-0 text-right font-bold text-lg text-primary">{item.stage}</p>
               <div className="flex-1 rounded-lg border bg-card text-card-foreground shadow-sm p-4">
-                <h4 className="font-semibold mb-2">Recommended Vaccines:</h4>
+                <h4 className="font-semibold mb-2">{t.vaccine_recommended}:</h4>
                  <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                     {item.vaccines.map((vaccine, vIndex) => (
                       <li key={vIndex}>{vaccine}</li>
