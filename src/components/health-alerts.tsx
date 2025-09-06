@@ -9,6 +9,7 @@ const alerts = [
     area: "National",
     description: "An increase in influenza cases has been reported nationwide. Ensure you are vaccinated.",
     severity: "High",
+    tip: "Practice good respiratory hygiene (cover coughs/sneezes), and avoid close contact with sick individuals.",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const alerts = [
     area: "Semi-Urban Regions",
     description: "Mosquito-borne dengue fever cases are on the rise. Eliminate stagnant water sources.",
     severity: "Medium",
+    tip: "Use mosquito repellents, wear long sleeves, and eliminate stagnant water around your home to reduce mosquito breeding.",
   },
   {
     id: 3,
@@ -23,6 +25,7 @@ const alerts = [
     area: "Rural District X",
     description: "A small cluster of measles has been identified. Check vaccination status for children.",
     severity: "High",
+    tip: "Ensure children are up-to-date with their MMR vaccinations.",
   },
    {
     id: 4,
@@ -30,6 +33,7 @@ const alerts = [
     area: "All Regions",
     description: "Temperatures are expected to be higher than usual. Stay hydrated and avoid outdoor activities during peak hours.",
     severity: "Low",
+    tip: "Drink plenty of water, wear light clothing, and stay in the shade during the hottest parts of the day.",
   },
 ];
 
@@ -87,7 +91,7 @@ export function HealthAlerts() {
                    <Badge variant={config.badge}>{alert.severity}</Badge>
                 </div>
                 <p className="text-sm">{alert.description}</p>
-                 <p className="text-xs italic opacity-70 mt-2">Tip: Use mosquito repellents, wear long sleeves, and eliminate stagnant water around your home to reduce mosquito breeding.</p>
+                 <p className="text-xs italic opacity-70 mt-2">Tip: {alert.tip}</p>
               </div>
             );
           })}
