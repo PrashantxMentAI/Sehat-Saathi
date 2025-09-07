@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -19,7 +20,7 @@ export function Header() {
       <div className="container mx-auto flex items-center justify-between py-2 px-4">
         <div className="flex items-center gap-1">
           <Image src="/logoo.png" alt="Sehat Saathi logo" width={48} height={48} />
-          <span className="text-2xl font-bold font-headline relative -top-0.5">Sehat Saathi</span>
+          <span className="text-3xl font-bold font-headline relative -top-0.5">Sehat Saathi</span>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
