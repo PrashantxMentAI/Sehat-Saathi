@@ -193,7 +193,8 @@ export function SymptomChecker() {
               {t.symptoms}
             </CardTitle>
             <CardDescription className="text-base">
-              {t.symptoms_description}
+              {t.symptoms_description.split("Please consult a qualified doctor for medical advice.")[0]}
+              <strong>{language === 'en' ? "Please consult a qualified doctor for medical advice." : "कृपया चिकित्सकीय सलाह के लिए एक योग्य चिकित्सक से परामर्श करें।"}</strong>
             </CardDescription>
           </div>
           {history.length > 0 && (
