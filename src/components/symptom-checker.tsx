@@ -168,7 +168,7 @@ export function SymptomChecker() {
                 </FormItem>
               )}
             />
-             <Button type="submit" disabled={isLoading || isRecording} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
+             <Button type="submit" disabled={isLoading} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
               {isLoading ? t.analyzing : t.check_symptoms}
               <Search className="ml-2 h-5 w-5" />
             </Button>
