@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Facebook, Twitter, Instagram } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
+import Image from "next/image";
 
 export function Footer() {
   const { t } = useLanguage();
@@ -16,6 +17,7 @@ export function Footer() {
     <footer className="bg-card py-8 text-center text-muted-foreground border-t">
       <div className="container mx-auto">
         <div className="flex justify-center items-center gap-2 mb-4">
+           <Image src="/logoo.png" alt="Logo" width={24} height={24} />
            <p className="font-semibold text-lg">{t.footer_trust}</p>
         </div>
         <div className="flex justify-center gap-6 mb-4">
