@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Bot, User, Sparkles, Search, Mic } from "lucide-react";
+import { Bot, User, Sparkles, Search, Mic, Trash2, History } from "lucide-react";
 import { symptomChecker, type SymptomCheckerOutput } from "@/ai/flows/symptom-checker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -14,18 +14,46 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage } from "@/contexts/language-context";
+import { Separator } from "@/components/ui/separator";
 
 // A global variable to hold the speech recognition instance
 let recognition: SpeechRecognition | null = null;
 // Store the final transcript to build upon it.
 let finalTranscript = '';
 
+interface HistoryItem {
+  id: string;
+  symptoms: string;
+  result: SymptomCheckerOutput;
+  timestamp: string;
+}
+
 export function SymptomChecker() {
   const { t, language } = useLanguage();
   const [result, setResult] = useState<SymptomCheckerOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const { toast } = useToast();
+
+  useEffect(() => {
+    try {
+      const storedHistory = localStorage.getItem("symptomCheckerHistory");
+      if (storedHistory) {
+        setHistory(JSON.parse(storedHistory));
+      }
+    } catch (error) {
+      console.error("Failed to load history from localStorage", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("symptomCheckerHistory", JSON.stringify(history));
+    } catch (error) {
+      console.error("Failed to save history to localStorage", error);
+    }
+  }, [history]);
 
   const formSchema = z.object({
     symptoms: z.string().min(10, {
@@ -123,6 +151,14 @@ export function SymptomChecker() {
     try {
       const response = await symptomChecker({ symptoms: values.symptoms });
       setResult(response);
+      const newHistoryItem: HistoryItem = {
+        id: new Date().toISOString(),
+        symptoms: values.symptoms,
+        result: response,
+        timestamp: new Date().toLocaleString(),
+      };
+      setHistory(prevHistory => [newHistoryItem, ...prevHistory]);
+      form.reset();
     } catch (error) {
       console.error("Symptom checker error:", error);
       toast({
@@ -135,7 +171,12 @@ export function SymptomChecker() {
     }
   }
 
+  const handleClearHistory = () => {
+    setHistory([]);
+  };
+
   return (
+    <>
     <Card className="shadow-lg rounded-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl font-bold">
@@ -171,7 +212,7 @@ export function SymptomChecker() {
                 </FormItem>
               )}
             />
-             <Button type="submit" disabled={isLoading} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
+             <Button type="submit" disabled={isLoading || isRecording} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
               {isLoading ? t.analyzing : t.check_symptoms}
               <Search className="ml-2 h-5 w-5" />
             </Button>
@@ -207,5 +248,55 @@ export function SymptomChecker() {
         </CardFooter>
       )}
     </Card>
+
+    {history.length > 0 && (
+        <Card className="shadow-lg rounded-lg mt-12">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2 text-2xl font-bold">
+                <History className="text-primary" />
+                {t.history_title}
+              </CardTitle>
+              <CardDescription>{t.history_description}</CardDescription>
+            </div>
+            <Button variant="outline" size="sm" onClick={handleClearHistory}>
+              <Trash2 className="mr-2 h-4 w-4" />
+              {t.history_clear}
+            </Button>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {history.map((item) => (
+              <div key={item.id}>
+                <div className="space-y-4">
+                  <div>
+                    <div className="font-semibold flex items-center gap-2 mb-2">
+                      <User className="h-5 w-5 text-muted-foreground" />
+                      <span>{t.history_your_symptoms}</span>
+                    </div>
+                    <p className="text-muted-foreground text-sm italic">"{item.symptoms}"</p>
+                  </div>
+                  <div>
+                    <div className="font-semibold flex items-center gap-2 mb-2">
+                      <Bot className="h-5 w-5 text-primary" />
+                       <span>{t.history_ai_response}</span>
+                    </div>
+                    <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
+                      <ul className="list-disc pl-5 space-y-1">
+                        {item.result.potentialHealthConcerns.split('\n').map((concern, index) => concern.trim() && (
+                          <li key={index}>{concern.replace(/^- /, '').trim()}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                   <p className="text-xs text-right text-muted-foreground">{item.timestamp}</p>
+                </div>
+                <Separator className="my-6" />
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+    </>
   );
 }
+
