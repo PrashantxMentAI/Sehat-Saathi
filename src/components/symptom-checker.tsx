@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -16,6 +17,8 @@ import { useLanguage } from "@/contexts/language-context";
 
 // A global variable to hold the speech recognition instance
 let recognition: SpeechRecognition | null = null;
+// Store the final transcript to build upon it.
+let finalTranscript = '';
 
 export function SymptomChecker() {
   const { t, language } = useLanguage();
@@ -47,7 +50,8 @@ export function SymptomChecker() {
 
       recognition.onresult = (event) => {
         let interimTranscript = '';
-        let finalTranscript = '';
+        // Reset final transcript at the start of new results
+        finalTranscript = ''; 
         for (let i = 0; i < event.results.length; i++) {
           const transcript = event.results[i][0].transcript;
           if (event.results[i].isFinal) {
@@ -56,8 +60,7 @@ export function SymptomChecker() {
             interimTranscript += transcript;
           }
         }
-        const currentSymptoms = form.getValues("symptoms");
-        form.setValue("symptoms", currentSymptoms + finalTranscript + interimTranscript);
+        form.setValue("symptoms", finalTranscript + interimTranscript);
       };
 
       recognition.onerror = (event) => {
@@ -78,6 +81,7 @@ export function SymptomChecker() {
     return () => {
       if (recognition) {
         recognition.stop();
+        finalTranscript = '';
       }
     };
   }, [form, toast]);
@@ -100,11 +104,13 @@ export function SymptomChecker() {
 
     if (isRecording) {
       recognition.stop();
+      setIsRecording(false);
     } else {
+      finalTranscript = ''; // Clear transcript history
       form.setValue("symptoms", ""); // Clear previous text
       recognition.start();
+      setIsRecording(true);
     }
-    setIsRecording(!isRecording);
   };
 
 
