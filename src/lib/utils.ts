@@ -36,18 +36,21 @@ export function parseAIResponse(response: string): string {
         return `${closingTag}${line}`;
     }
     
-    return `${closingTag}${line}`;
+    return `${closingTag}<p>${line}</p>`;
 
-  }).join('<br/>');
+  }).join('');
 
   if (inList) {
     html += '</ul>';
   }
   
   // Clean up by replacing <br> tags that are directly before or after block elements
-  html = html.replace(/<br\/><ul>/g, '<ul>');
-  html = html.replace(/<\/h4><br\/>/g, '</h4>');
-  html = html.replace(/<\/ul><br\/>/g, '</ul>');
+  html = html.replace(/<p><\/p>/g, '');
+  html = html.replace(/<p><ul>/g, '<ul>');
+  html = html.replace(/<\/ul><p>/g, '</ul>');
+  html = html.replace(/<p><h4>/g, '<h4>');
+  html = html.replace(/<\/h4><p>/g, '</h4>');
+
 
   return html;
 }
