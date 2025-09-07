@@ -110,8 +110,13 @@
     "emergency_title": "Emergency Helplines",
     "emergency_description": "In case of a medical emergency, use these numbers.",
     "emergency_ambulance": "Ambulance",
+    "emergency_ambulance_102_desc": "For pregnant women & infants",
+    "emergency_ambulance_108_desc": "For general medical emergencies",
     "emergency_police": "Police",
-    "emergency_national": "National Emergency",
+    "emergency_police_100_desc": "Local Police Control Room",
+    "emergency_police_112_desc": "National emergency number",
+    "emergency_national": "National Helpline",
+    "emergency_national_desc": "For any emergency situation",
 
     "footer_trust": "Trusted by Doctors",
     "footer_rights": "HealthWise AI. All rights reserved."
@@ -226,8 +231,13 @@
     "emergency_title": "आपातकालीन हेल्पलाइन",
     "emergency_description": "चिकित्सा आपातकाल की स्थिति में, इन नंबरों का उपयोग करें।",
     "emergency_ambulance": "एम्बुलेंस",
+    "emergency_ambulance_102_desc": "गर्भवती महिलाओं और शिशुओं के लिए",
+    "emergency_ambulance_108_desc": "सामान्य चिकित्सा आपात स्थितियों के लिए",
     "emergency_police": "पुलिस",
-    "emergency_national": "राष्ट्रीय आपातकाल",
+    "emergency_police_100_desc": "स्थानीय पुलिस नियंत्रण कक्ष",
+    "emergency_police_112_desc": "राष्ट्रीय आपातकालीन नंबर",
+    "emergency_national": "राष्ट्रीय हेल्पलाइन",
+    "emergency_national_desc": "किसी भी आपात स्थिति के लिए",
     
     "footer_trust": "डॉक्टरों द्वारा विश्वसनीय",
     "footer_rights": "हेल्थवाइस एआई। सर्वाधिकार सुरक्षित।"
