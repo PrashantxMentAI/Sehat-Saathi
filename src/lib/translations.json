@@ -27,6 +27,7 @@
     "symptoms_placeholder": "e.g., I have a high fever, a persistent cough, and a runny nose...",
     "symptoms_error": "Please describe your symptoms in at least 10 characters.",
     "possible_causes": "Possible Causes",
+    "precautions_title": "Precautions & Suggestions",
     "disclaimer": "Disclaimer: This is an AI-generated list and not a substitute for professional medical advice. Please consult a healthcare provider for any health concerns.",
 
     "history_title": "Symptom Check History",
@@ -156,6 +157,7 @@
     "symptoms_placeholder": "जैसे, मुझे तेज बुखार, लगातार खांसी और बहती नाक है...",
     "symptoms_error": "कृपया अपने लक्षणों का कम से कम 10 अक्षरों में वर्णन करें।",
     "possible_causes": "संभावित कारण",
+    "precautions_title": "सावधानियां और सुझाव",
     "disclaimer": "अस्वीकरण: यह एक एआई-जनित सूची है और पेशेवर चिकित्सा सलाह का विकल्प नहीं है। कृपया किसी भी स्वास्थ्य संबंधी चिंता के लिए स्वास्थ्य सेवा प्रदाता से परामर्श करें।",
 
     "history_title": "लक्षण जांच इतिहास",

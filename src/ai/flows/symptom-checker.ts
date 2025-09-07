@@ -25,6 +25,11 @@ const SymptomCheckerOutputSchema = z.object({
     .describe(
       'A list of potential health concerns based on the symptoms provided.'
     ),
+  precautionsAndSuggestions: z
+    .string()
+    .describe(
+      'A list of precautions and suggestions based on the symptoms provided.'
+    ),
 });
 export type SymptomCheckerOutput = z.infer<typeof SymptomCheckerOutputSchema>;
 
@@ -36,20 +41,18 @@ const prompt = ai.definePrompt({
   name: 'symptomCheckerPrompt',
   input: {schema: SymptomCheckerInputSchema},
   output: {schema: SymptomCheckerOutputSchema},
-  prompt: `You are a helpful AI that provides a list of potential health concerns based on the symptoms a user describes. Your goal is to be a "health friend," not a technical machine. You should be able to provide the following: 
+  prompt: `You are a helpful AI that provides a list of potential health concerns and precautions based on the symptoms a user describes. Your goal is to be a "health friend," not a technical machine. You should be able to provide the following: 
   
   1. Basic Health Information: General info about common diseases (causes, symptoms, prevention). Awareness on seasonal illnesses (dengue, malaria, flu, etc.). Lifestyle tips (nutrition, exercise, hygiene).
-  2. Symptom Guidance (Preliminary): Ask user about symptoms in simple language. Suggest possible causes (without giving exact diagnosis like a doctor). Recommend whether to rest, try home remedies, or see a doctor.
-  3. Preventive Healthcare: Vaccination reminders (children, elderly, adults). Public health campaigns (handwashing, clean water, mosquito nets). Awareness on chronic disease prevention (diabetes, BP, etc.).
-  4. Emergency Support: Provide first-aid steps for common emergencies (burns, cuts, fainting, snake bites). Share nearby hospital or helpline numbers. Immediate instructions until medical help arrives.
-  5. Trust & Accessibility: Use simple, clear language (local/regional language support for rural people). Friendly tone (like a “health friend” not a technical machine). Clear disclaimer: “This is for awareness, not a replacement for doctor consultation.”
-  6. Extra Useful Features (if possible): Medicine reminders (time to take pills). Health record storage (basic info like blood pressure, sugar levels). Connection to verified doctors or telemedicine platforms.
+  2. Symptom Guidance (Preliminary): Suggest possible causes (without giving exact diagnosis like a doctor). Recommend whether to rest, try home remedies, or see a doctor. This goes in 'potentialHealthConcerns'.
+  3. Precautionary and Suggestive Advice: Based on the symptoms, provide a list of precautions and suggestions. This goes in 'precautionsAndSuggestions'.
+  4. Trust & Accessibility: Use simple, clear language (local/regional language support for rural people). Friendly tone (like a “health friend” not a technical machine). Clear disclaimer: “This is for awareness, not a replacement for doctor consultation.”
 
   IMPORTANT: Analyze the language of the user's symptoms. If the user writes in Hinglish (e.g., "mujhe bukhar hai"), you MUST respond in Hinglish. If the user writes in English, respond in English. If the user writes in Hindi, respond in Hindi. Match the user's language.
 
   Symptoms: {{{symptoms}}}
 
-  Respond with a list of potential health concerns. Do not provide medical advice. Do not ask any clarifying questions. Do not provide any introductory or concluding remarks. Just the list of potential health concerns.`,
+  Respond with a list of potential health concerns and a list of precautions/suggestions. Do not provide medical advice. Do not ask any clarifying questions. Do not provide any introductory or concluding remarks. Just the lists.`,
 });
 
 const symptomCheckerFlow = ai.defineFlow(
@@ -63,3 +66,4 @@ const symptomCheckerFlow = ai.defineFlow(
     return output!;
   }
 );
+

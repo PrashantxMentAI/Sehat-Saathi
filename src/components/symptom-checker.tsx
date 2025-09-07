@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Bot, User, Sparkles, Search, Mic, Trash2, History } from "lucide-react";
+import { Bot, User, Sparkles, Search, Mic, Trash2, History, ShieldQuestion } from "lucide-react";
 import { symptomChecker, type SymptomCheckerOutput } from "@/ai/flows/symptom-checker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -234,7 +234,7 @@ export function SymptomChecker() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading || isRecording} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
+              <Button type="submit" disabled={isLoading} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
                 {isLoading ? t.analyzing : t.check_symptoms}
                 <Search className="ml-2 h-5 w-5" />
               </Button>
@@ -243,29 +243,57 @@ export function SymptomChecker() {
         </CardContent>
         {(isLoading || result) && (
           <CardFooter>
-            <div className="w-full">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Bot className="text-accent" />
-                {t.possible_causes}
-              </h3>
-              {isLoading ? (
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-4/5" />
-                  <Skeleton className="h-4 w-3/5" />
-                </div>
-              ) : result ? (
-                <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
-                  <ul className="list-disc pl-5 space-y-2">
-                    {result.potentialHealthConcerns.split('\n').map((item, index) => item.trim() && (
-                      <li key={index}>{item.replace(/^- /, '').trim()}</li>
-                    ))}
-                  </ul>
-                  <p className="text-xs text-muted-foreground mt-4 p-2 bg-yellow-100/50 dark:bg-yellow-900/30 rounded-md border-l-4 border-yellow-400">
-                    <strong>{t.disclaimer.split(':')[0]}:</strong> {t.disclaimer.split(':')[1]}
-                  </p>
-                </div>
+            <div className="w-full space-y-6">
+              <div>
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Bot className="text-accent" />
+                  {t.possible_causes}
+                </h3>
+                {isLoading ? (
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-4/5" />
+                    <Skeleton className="h-4 w-3/5" />
+                  </div>
+                ) : result?.potentialHealthConcerns ? (
+                  <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
+                    <ul className="list-disc pl-5 space-y-2">
+                      {result.potentialHealthConcerns.split('\n').map((item, index) => item.trim() && (
+                        <li key={index}>{item.replace(/^- /, '').trim()}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+
+              {isLoading || (result && result.precautionsAndSuggestions) ? (
+                 <div>
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                      <ShieldQuestion className="text-green-600" />
+                      {t.precautions_title}
+                    </h3>
+                    {isLoading ? (
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-4/5" />
+                      </div>
+                    ) : result?.precautionsAndSuggestions ? (
+                      <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
+                        <ul className="list-disc pl-5 space-y-2">
+                          {result.precautionsAndSuggestions.split('\n').map((item, index) => item.trim() && (
+                            <li key={index}>{item.replace(/^- /, '').trim()}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
               ) : null}
+
+              {result && (
+                <p className="text-xs text-muted-foreground mt-4 p-2 bg-yellow-100/50 dark:bg-yellow-900/30 rounded-md border-l-4 border-yellow-400">
+                  <strong>{t.disclaimer.split(':')[0]}:</strong> {t.disclaimer.split(':')[1]}
+                </p>
+              )}
             </div>
           </CardFooter>
         )}
@@ -302,12 +330,27 @@ export function SymptomChecker() {
                         <Bot className="h-5 w-5 text-primary" />
                          <span>{t.history_ai_response}</span>
                       </div>
-                      <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
-                        <ul className="list-disc pl-5 space-y-1">
-                          {item.result.potentialHealthConcerns.split('\n').map((concern, index) => concern.trim() && (
-                            <li key={index}>{concern.replace(/^- /, '').trim()}</li>
-                          ))}
-                        </ul>
+                      <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300 space-y-4">
+                        {item.result.potentialHealthConcerns && (
+                            <div>
+                                <h4 className="font-medium text-sm">{t.possible_causes}</h4>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  {item.result.potentialHealthConcerns.split('\n').map((concern, index) => concern.trim() && (
+                                    <li key={index}>{concern.replace(/^- /, '').trim()}</li>
+                                  ))}
+                                </ul>
+                            </div>
+                        )}
+                        {item.result.precautionsAndSuggestions && (
+                            <div>
+                                <h4 className="font-medium text-sm">{t.precautions_title}</h4>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  {item.result.precautionsAndSuggestions.split('\n').map((suggestion, index) => suggestion.trim() && (
+                                    <li key={index}>{suggestion.replace(/^- /, '').trim()}</li>
+                                  ))}
+                                </ul>
+                            </div>
+                        )}
                       </div>
                     </div>
                      <p className="text-xs text-right text-muted-foreground">{item.timestamp}</p>
@@ -321,5 +364,3 @@ export function SymptomChecker() {
     </TooltipProvider>
   );
 }
-
-    
