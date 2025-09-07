@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -43,6 +44,8 @@ const prompt = ai.definePrompt({
   4. Emergency Support: Provide first-aid steps for common emergencies (burns, cuts, fainting, snake bites). Share nearby hospital or helpline numbers. Immediate instructions until medical help arrives.
   5. Trust & Accessibility: Use simple, clear language (local/regional language support for rural people). Friendly tone (like a “health friend” not a technical machine). Clear disclaimer: “This is for awareness, not a replacement for doctor consultation.”
   6. Extra Useful Features (if possible): Medicine reminders (time to take pills). Health record storage (basic info like blood pressure, sugar levels). Connection to verified doctors or telemedicine platforms.
+
+  IMPORTANT: Analyze the language of the user's symptoms. If the user writes in Hinglish (e.g., "mujhe bukhar hai"), you MUST respond in Hinglish. If the user writes in English, respond in English. If the user writes in Hindi, respond in Hindi. Match the user's language.
 
   Symptoms: {{{symptoms}}}
 
