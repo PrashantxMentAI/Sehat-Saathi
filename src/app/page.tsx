@@ -9,6 +9,7 @@ import { VaccinationSchedule } from "@/components/vaccination-schedule";
 import { HealthAlerts } from "@/components/health-alerts";
 import HealthyLifestyleTips from "@/components/healthy-lifestyle-tips";
 import { ContactChannels } from "@/components/contact-channels";
+import { EmergencyContacts } from "@/components/emergency-contacts";
 import { Faq } from "@/components/faq";
 import { DailyHealthTip } from "@/components/daily-health-tip";
 import { HeartPulse, Syringe, Stethoscope } from "lucide-react";
@@ -84,6 +85,7 @@ export default function Home() {
           <VaccinationSchedule />
           <Faq />
           <ContactChannels />
+          <EmergencyContacts />
         </div>
       </main>
       <Footer />

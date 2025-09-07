@@ -107,6 +107,12 @@
     "contact_whatsapp": "Chat on WhatsApp",
     "contact_sms": "Use via SMS",
 
+    "emergency_title": "Emergency Helplines",
+    "emergency_description": "In case of a medical emergency, use these numbers.",
+    "emergency_ambulance": "Ambulance",
+    "emergency_police": "Police",
+    "emergency_national": "National Emergency",
+
     "footer_trust": "Trusted by Doctors",
     "footer_rights": "HealthWise AI. All rights reserved."
   },
@@ -216,6 +222,12 @@
     "contact_description": "अपने पसंदीदा मैसेजिंग ऐप के माध्यम से हेल्थवाइस एआई तक पहुंचें।",
     "contact_whatsapp": "व्हाट्सएप पर चैट करें",
     "contact_sms": "एसएमएस के माध्यम से उपयोग करें",
+
+    "emergency_title": "आपातकालीन हेल्पलाइन",
+    "emergency_description": "चिकित्सा आपातकाल की स्थिति में, इन नंबरों का उपयोग करें।",
+    "emergency_ambulance": "एम्बुलेंस",
+    "emergency_police": "पुलिस",
+    "emergency_national": "राष्ट्रीय आपातकाल",
     
     "footer_trust": "डॉक्टरों द्वारा विश्वसनीय",
     "footer_rights": "हेल्थवाइस एआई। सर्वाधिकार सुरक्षित।"
