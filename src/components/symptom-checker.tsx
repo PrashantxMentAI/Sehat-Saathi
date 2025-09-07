@@ -16,11 +16,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage } from "@/contexts/language-context";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { parseAIResponse } from "@/lib/utils";
 
 // A global variable to hold the speech recognition instance
 let recognition: SpeechRecognition | null = null;
-// Store the final transcript to build upon it.
-let finalTranscript = '';
 
 interface HistoryItem {
   id: string;
@@ -73,15 +72,20 @@ export function SymptomChecker() {
   useEffect(() => {
     // Initialize SpeechRecognition only on the client side
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let finalTranscript = '';
+
     if (SpeechRecognition) {
       recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
 
+      recognition.onstart = () => {
+        setIsRecording(true);
+      };
+
       recognition.onresult = (event) => {
         let interimTranscript = '';
-        // Reset final transcript at the start of new results
-        finalTranscript = ''; 
+        finalTranscript = '';
         for (let i = 0; i < event.results.length; i++) {
           const transcript = event.results[i][0].transcript;
           if (event.results[i].isFinal) {
@@ -111,7 +115,6 @@ export function SymptomChecker() {
     return () => {
       if (recognition) {
         recognition.stop();
-        finalTranscript = '';
       }
     };
   }, [form, toast]);
@@ -134,12 +137,9 @@ export function SymptomChecker() {
 
     if (isRecording) {
       recognition.stop();
-      setIsRecording(false);
     } else {
-      finalTranscript = ''; // Clear transcript history
       form.setValue("symptoms", ""); // Clear previous text
       recognition.start();
-      setIsRecording(true);
     }
   };
 
@@ -278,13 +278,10 @@ export function SymptomChecker() {
                         <Skeleton className="h-4 w-4/5" />
                       </div>
                     ) : result?.precautionsAndSuggestions ? (
-                      <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
-                        <ul className="list-disc pl-5 space-y-2">
-                          {result.precautionsAndSuggestions.split('\n').map((item, index) => item.trim() && (
-                            <li key={index}>{item.replace(/^- /, '').trim()}</li>
-                          ))}
-                        </ul>
-                      </div>
+                      <div
+                        className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300"
+                        dangerouslySetInnerHTML={{ __html: parseAIResponse(result.precautionsAndSuggestions) }}
+                      />
                     ) : null}
                   </div>
               ) : null}
@@ -344,11 +341,10 @@ export function SymptomChecker() {
                         {item.result.precautionsAndSuggestions && (
                             <div>
                                 <h4 className="font-medium text-sm">{t.precautions_title}</h4>
-                                <ul className="list-disc pl-5 space-y-1">
-                                  {item.result.precautionsAndSuggestions.split('\n').map((suggestion, index) => suggestion.trim() && (
-                                    <li key={index}>{suggestion.replace(/^- /, '').trim()}</li>
-                                  ))}
-                                </ul>
+                                <div
+                                  className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300"
+                                  dangerouslySetInnerHTML={{ __html: parseAIResponse(item.result.precautionsAndSuggestions) }}
+                                />
                             </div>
                         )}
                       </div>
@@ -364,3 +360,5 @@ export function SymptomChecker() {
     </TooltipProvider>
   );
 }
+
+    
