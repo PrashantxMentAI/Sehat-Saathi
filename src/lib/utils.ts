@@ -9,48 +9,52 @@ export function cn(...inputs: ClassValue[]) {
 export function parseAIResponse(response: string): string {
   if (!response) return "";
 
-  let html = response;
+  // Split the response into lines
+  const lines = response.split('\n').filter(line => line.trim() !== '');
 
-  // Process headings: **text** -> <h4>text</h4>
-  html = html.replace(/\*\*(.*?)\*\*/g, '<h4>$1</h4>');
-
-  const lines = html.split('\n').filter(line => line.trim() !== '');
-  
+  let html = '';
   let inList = false;
-  html = lines.map(line => {
-    line = line.trim();
-    
-    if (line.startsWith('* ') || line.startsWith('- ')) {
-      const listItem = `<li>${line.substring(2)}</li>`;
-      if (!inList) {
-        inList = true;
-        return `<ul>${listItem}`;
+
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+
+    // Check for headings like **Self-care steps**
+    if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
       }
-      return listItem;
+      html += `<h4>${trimmedLine.substring(2, trimmedLine.length - 2)}</h4>`;
+      continue;
     }
 
-    const closingTag = inList ? '</ul>' : '';
-    inList = false;
-    
-    if (line.startsWith('<h4>')) {
-        return `${closingTag}${line}`;
+    // Check for list items like * Get plenty of rest...
+    if (trimmedLine.startsWith('* ') || trimmedLine.startsWith('- ')) {
+      if (!inList) {
+        html += '<ul>';
+        inList = true;
+      }
+      html += `<li>${trimmedLine.substring(2)}</li>`;
+      continue;
     }
     
-    return `${closingTag}<p>${line}</p>`;
+    // If we are in a list and the line is not a list item, close the list
+    if (inList) {
+      html += '</ul>';
+      inList = false;
+    }
 
-  }).join('');
+    // Any other line is treated as a paragraph
+    html += `<p>${trimmedLine}</p>`;
+  }
 
+  // Close any open list at the end
   if (inList) {
     html += '</ul>';
   }
-  
-  // Clean up by replacing <br> tags that are directly before or after block elements
-  html = html.replace(/<p><\/p>/g, '');
-  html = html.replace(/<p><ul>/g, '<ul>');
-  html = html.replace(/<\/ul><p>/g, '</ul>');
-  html = html.replace(/<p><h4>/g, '<h4>');
-  html = html.replace(/<\/h4><p>/g, '</h4>');
 
+  // Clean up any empty paragraphs that might have been created
+  html = html.replace(/<p><\/p>/g, '');
 
   return html;
 }
