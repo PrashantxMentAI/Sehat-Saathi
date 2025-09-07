@@ -115,6 +115,9 @@ export function SymptomChecker() {
 
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (isRecording) {
+      recognition?.stop();
+    }
     setIsLoading(true);
     setResult(null);
     try {
