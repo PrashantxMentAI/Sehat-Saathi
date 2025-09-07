@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Facebook, Twitter, Instagram, HeartPulse } from "lucide-react";
+import { Facebook, Twitter, Instagram } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 
 export function Footer() {
@@ -16,7 +16,6 @@ export function Footer() {
     <footer className="bg-card py-8 text-center text-muted-foreground border-t">
       <div className="container mx-auto">
         <div className="flex justify-center items-center gap-2 mb-4">
-           <HeartPulse className="h-6 w-6 text-primary heartbeat" />
            <p className="font-semibold text-lg">{t.footer_trust}</p>
         </div>
         <div className="flex justify-center gap-6 mb-4">
