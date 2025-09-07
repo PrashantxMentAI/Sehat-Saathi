@@ -47,8 +47,8 @@ const prompt = ai.definePrompt({
   1.  **potentialHealthConcerns**: Provide a list of possible causes for the symptoms.
   2.  **precautionsAndSuggestions**: Provide a detailed, structured, and conversational response that includes:
       - A friendly opening, like "I'm sorry you're not feeling well. Since you have [symptom], here are a few things you can do:"
-      - A "Self-care steps" section with a bulleted list of actionable advice (e.g., rest, hydration, light food).
-      - A "When to see a doctor urgently" section with a bulleted list of serious symptoms that warrant immediate medical attention.
+      - A "**Self-care steps**" section with a bulleted list (using '*') of actionable advice (e.g., rest, hydration, light food).
+      - A "**When to see a doctor urgently**" section with a bulleted list (using '*') of serious symptoms that warrant immediate medical attention.
       - A concluding recommendation to visit a doctor for a proper diagnosis.
       - A clear disclaimer: “This is for awareness, not a replacement for doctor consultation.”
 
