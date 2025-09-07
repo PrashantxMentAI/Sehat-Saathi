@@ -34,6 +34,8 @@
     "history_clear": "Clear History",
     "history_your_symptoms": "Your Symptoms",
     "history_ai_response": "AI Response",
+    "history_show": "Show History",
+    "history_hide": "Hide History",
 
     "alerts": "Real-Time Health Alerts",
     "alerts_description": "Stay informed about health advisories and outbreaks in your area.",
@@ -161,6 +163,8 @@
     "history_clear": "इतिहास साफ़ करें",
     "history_your_symptoms": "आपके लक्षण",
     "history_ai_response": "एआई प्रतिक्रिया",
+    "history_show": "इतिहास दिखाएं",
+    "history_hide": "इतिहास छिपाएं",
 
     "alerts": "रीयल-टाइम स्वास्थ्य अलर्ट",
     "alerts_description": "अपने क्षेत्र में स्वास्थ्य सलाह और प्रकोपों के बारे में सूचित रहें।",

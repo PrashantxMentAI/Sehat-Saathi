@@ -34,6 +34,7 @@ export function SymptomChecker() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -145,6 +146,7 @@ export function SymptomChecker() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (isRecording) {
       recognition?.stop();
+      setIsRecording(false);
     }
     setIsLoading(true);
     setResult(null);
@@ -173,7 +175,12 @@ export function SymptomChecker() {
 
   const handleClearHistory = () => {
     setHistory([]);
+    setShowHistory(false);
   };
+  
+  const toggleHistory = () => {
+    setShowHistory(prev => !prev);
+  }
 
   return (
     <>
@@ -212,7 +219,7 @@ export function SymptomChecker() {
                 </FormItem>
               )}
             />
-             <Button type="submit" disabled={isLoading || isRecording} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
+             <Button type="submit" disabled={isLoading} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
               {isLoading ? t.analyzing : t.check_symptoms}
               <Search className="ml-2 h-5 w-5" />
             </Button>
@@ -250,7 +257,16 @@ export function SymptomChecker() {
     </Card>
 
     {history.length > 0 && (
-        <Card className="shadow-lg rounded-lg mt-12">
+      <div className="mt-8 text-center">
+        <Button variant="outline" onClick={toggleHistory}>
+          <History className="mr-2 h-4 w-4" />
+          {showHistory ? t.history_hide : t.history_show}
+        </Button>
+      </div>
+    )}
+
+    {showHistory && history.length > 0 && (
+        <Card className="shadow-lg rounded-lg mt-4">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2 text-2xl font-bold">
