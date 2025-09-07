@@ -15,6 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage } from "@/contexts/language-context";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // A global variable to hold the speech recognition instance
 let recognition: SpeechRecognition | null = null;
@@ -183,136 +184,142 @@ export function SymptomChecker() {
   }
 
   return (
-    <>
-    <Card className="shadow-lg rounded-lg">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl font-bold">
-          <User className="text-primary" />
-          {t.symptoms}
-        </CardTitle>
-        <CardDescription className="text-base">
-          {t.symptoms_description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="symptoms"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <div className="relative">
-                      <Textarea
-                        placeholder={t.symptoms_placeholder}
-                        className="min-h-[100px] rounded-md shadow-inner pr-12"
-                        {...field}
-                      />
-                       <Button type="button" variant="ghost" size="icon" className={`absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary ${isRecording ? 'text-blue-600' : ''}`} onClick={handleVoiceInput}>
-                        <Mic className={`h-5 w-5 ${isRecording ? 'pulse-anim' : ''}`} />
-                        <span className="sr-only">Use microphone</span>
-                      </Button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-             <Button type="submit" disabled={isLoading} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
-              {isLoading ? t.analyzing : t.check_symptoms}
-              <Search className="ml-2 h-5 w-5" />
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-      {(isLoading || result) && (
-        <CardFooter>
-          <div className="w-full">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <Bot className="text-accent" />
-              {t.possible_causes}
-            </h3>
-            {isLoading ? (
-              <div className="space-y-2">
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-4/5" />
-                <Skeleton className="h-4 w-3/5" />
-              </div>
-            ) : result ? (
-              <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
-                <ul className="list-disc pl-5 space-y-2">
-                  {result.potentialHealthConcerns.split('\n').map((item, index) => item.trim() && (
-                    <li key={index}>{item.replace(/^- /, '').trim()}</li>
-                  ))}
-                </ul>
-                <p className="text-xs text-muted-foreground mt-4 p-2 bg-yellow-100/50 dark:bg-yellow-900/30 rounded-md border-l-4 border-yellow-400">
-                  <strong>{t.disclaimer.split(':')[0]}:</strong> {t.disclaimer.split(':')[1]}
-                </p>
-              </div>
-            ) : null}
+    <TooltipProvider>
+      <Card className="shadow-lg rounded-lg">
+        <CardHeader className="flex flex-row items-start justify-between">
+          <div>
+            <CardTitle className="flex items-center gap-2 text-2xl font-bold">
+              <User className="text-primary" />
+              {t.symptoms}
+            </CardTitle>
+            <CardDescription className="text-base">
+              {t.symptoms_description}
+            </CardDescription>
           </div>
-        </CardFooter>
-      )}
-    </Card>
-
-    {history.length > 0 && (
-      <div className="mt-8 text-center">
-        <Button variant="outline" onClick={toggleHistory}>
-          <History className="mr-2 h-4 w-4" />
-          {showHistory ? t.history_hide : t.history_show}
-        </Button>
-      </div>
-    )}
-
-    {showHistory && history.length > 0 && (
-        <Card className="shadow-lg rounded-lg mt-4">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center gap-2 text-2xl font-bold">
-                <History className="text-primary" />
-                {t.history_title}
-              </CardTitle>
-              <CardDescription>{t.history_description}</CardDescription>
-            </div>
-            <Button variant="outline" size="sm" onClick={handleClearHistory}>
-              <Trash2 className="mr-2 h-4 w-4" />
-              {t.history_clear}
-            </Button>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {history.map((item) => (
-              <div key={item.id}>
-                <div className="space-y-4">
-                  <div>
-                    <div className="font-semibold flex items-center gap-2 mb-2">
-                      <User className="h-5 w-5 text-muted-foreground" />
-                      <span>{t.history_your_symptoms}</span>
-                    </div>
-                    <p className="text-muted-foreground text-sm italic">"{item.symptoms}"</p>
-                  </div>
-                  <div>
-                    <div className="font-semibold flex items-center gap-2 mb-2">
-                      <Bot className="h-5 w-5 text-primary" />
-                       <span>{t.history_ai_response}</span>
-                    </div>
-                    <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
-                      <ul className="list-disc pl-5 space-y-1">
-                        {item.result.potentialHealthConcerns.split('\n').map((concern, index) => concern.trim() && (
-                          <li key={index}>{concern.replace(/^- /, '').trim()}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                   <p className="text-xs text-right text-muted-foreground">{item.timestamp}</p>
+          {history.length > 0 && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={toggleHistory}>
+                  <History className="h-5 w-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{showHistory ? t.history_hide : t.history_show}</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="symptoms"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="relative">
+                        <Textarea
+                          placeholder={t.symptoms_placeholder}
+                          className="min-h-[100px] rounded-md shadow-inner pr-12"
+                          {...field}
+                        />
+                        <Button type="button" variant="ghost" size="icon" className={`absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary ${isRecording ? 'text-blue-600' : ''}`} onClick={handleVoiceInput}>
+                          <Mic className={`h-5 w-5 ${isRecording ? 'pulse-anim' : ''}`} />
+                          <span className="sr-only">Use microphone</span>
+                        </Button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" disabled={isLoading || isRecording} size="lg" className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold">
+                {isLoading ? t.analyzing : t.check_symptoms}
+                <Search className="ml-2 h-5 w-5" />
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+        {(isLoading || result) && (
+          <CardFooter>
+            <div className="w-full">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <Bot className="text-accent" />
+                {t.possible_causes}
+              </h3>
+              {isLoading ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-4/5" />
+                  <Skeleton className="h-4 w-3/5" />
                 </div>
-                <Separator className="my-6" />
+              ) : result ? (
+                <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
+                  <ul className="list-disc pl-5 space-y-2">
+                    {result.potentialHealthConcerns.split('\n').map((item, index) => item.trim() && (
+                      <li key={index}>{item.replace(/^- /, '').trim()}</li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-muted-foreground mt-4 p-2 bg-yellow-100/50 dark:bg-yellow-900/30 rounded-md border-l-4 border-yellow-400">
+                    <strong>{t.disclaimer.split(':')[0]}:</strong> {t.disclaimer.split(':')[1]}
+                  </p>
+                </div>
+              ) : null}
+            </div>
+          </CardFooter>
+        )}
+      </Card>
+
+      {showHistory && history.length > 0 && (
+          <Card className="shadow-lg rounded-lg mt-8">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2 text-2xl font-bold">
+                  <History className="text-primary" />
+                  {t.history_title}
+                </CardTitle>
+                <CardDescription>{t.history_description}</CardDescription>
               </div>
-            ))}
-          </CardContent>
-        </Card>
-      )}
-    </>
+              <Button variant="outline" size="sm" onClick={handleClearHistory}>
+                <Trash2 className="mr-2 h-4 w-4" />
+                {t.history_clear}
+              </Button>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {history.map((item) => (
+                <div key={item.id}>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="font-semibold flex items-center gap-2 mb-2">
+                        <User className="h-5 w-5 text-muted-foreground" />
+                        <span>{t.history_your_symptoms}</span>
+                      </div>
+                      <p className="text-muted-foreground text-sm italic">"{item.symptoms}"</p>
+                    </div>
+                    <div>
+                      <div className="font-semibold flex items-center gap-2 mb-2">
+                        <Bot className="h-5 w-5 text-primary" />
+                         <span>{t.history_ai_response}</span>
+                      </div>
+                      <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300">
+                        <ul className="list-disc pl-5 space-y-1">
+                          {item.result.potentialHealthConcerns.split('\n').map((concern, index) => concern.trim() && (
+                            <li key={index}>{concern.replace(/^- /, '').trim()}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                     <p className="text-xs text-right text-muted-foreground">{item.timestamp}</p>
+                  </div>
+                  <Separator className="my-6" />
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
+    </TooltipProvider>
   );
 }
 
+    
