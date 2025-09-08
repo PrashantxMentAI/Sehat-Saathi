@@ -47,7 +47,7 @@ const prompt = ai.definePrompt({
   1.  **potentialHealthConcerns**: Provide a list of possible causes for the symptoms.
   2.  **precautionsAndSuggestions**: Provide a brief, structured, and conversational response that includes:
       - A friendly opening, like "I'm sorry you're not feeling well. Since you have [symptom], here are a few things you can do:"
-      - A "**Self-care steps**" section with a short, bulleted list (using '*') of actionable advice. Each bullet point should be a complete sentence and not contain its own heading (e.g., "* Get plenty of rest to help your body recover.").
+      - A "**Self-care steps**" section with a short, bulleted list (using '*') of actionable advice. Each bullet point should be a complete sentence.
       - A "**When to see a doctor urgently**" section with a short, bulleted list (using '*') of serious symptoms that warrant immediate medical attention. Each point should be a complete sentence.
       - A concluding recommendation to visit a doctor for a proper diagnosis.
       - A clear disclaimer: “This is for awareness, not a replacement for doctor consultation.”
@@ -55,7 +55,7 @@ const prompt = ai.definePrompt({
   **IMPORTANT Instructions:**
   - Use simple, clear, and brief language. Keep the lists short and to the point.
   - Adopt a friendly and empathetic tone.
-  - **Analyze the language of the user's symptoms. If the user writes in Hinglish (e.g., "mujhe bukhar hai"), you MUST respond in Hinglish. If the user writes in English, respond in English. If the user writes in Hindi, respond in Hindi. Match the user's language.**
+  - **Analyze the language of the user's symptoms. If the user writes in Hinglish (e.g., "mujhe bukhar hai"), you MUST respond *only* in Hinglish. If the user writes in English, you MUST respond *only* in English. If the user writes in pure Hindi (e.g., "मुझे बुखार है"), you MUST respond *only* in pure Hindi. Do not mix languages.**
   - Do not ask clarifying questions.
 
   **User's Symptoms:** {{{symptoms}}}

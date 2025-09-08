@@ -9,7 +9,6 @@ export function cn(...inputs: ClassValue[]) {
 export function parseAIResponse(response: string): string {
   if (!response) return "";
 
-  // Split the response into lines for processing
   const lines = response.split('\n').filter(line => line.trim() !== '');
 
   let html = '';
@@ -24,7 +23,6 @@ export function parseAIResponse(response: string): string {
         html += '</ul>';
         inList = false;
       }
-      // Use <h4> for headings to make them stand out
       html += `<h4>${trimmedLine.substring(2, trimmedLine.length - 2)}</h4>`;
       continue;
     }
