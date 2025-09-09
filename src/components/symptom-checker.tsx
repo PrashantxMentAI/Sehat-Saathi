@@ -20,6 +20,12 @@ import { parseAIResponse } from "@/lib/utils";
 
 // A global variable to hold the speech recognition instance
 let recognition: SpeechRecognition | null = null;
+if (typeof window !== 'undefined') {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+  }
+}
 
 interface HistoryItem {
   id: string;
@@ -36,6 +42,7 @@ export function SymptomChecker() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const { toast } = useToast();
+  const finalTranscriptRef = useRef('');
 
   useEffect(() => {
     try {
@@ -70,47 +77,40 @@ export function SymptomChecker() {
   });
 
   useEffect(() => {
-    // Initialize SpeechRecognition only on the client side
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    let finalTranscript = '';
+    if (!recognition) return;
 
-    if (SpeechRecognition) {
-      recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
+    recognition.continuous = true;
+    recognition.interimResults = true;
 
-      recognition.onstart = () => {
-        setIsRecording(true);
-      };
+    recognition.onstart = () => {
+      setIsRecording(true);
+    };
 
-      recognition.onresult = (event) => {
-        let interimTranscript = '';
-        finalTranscript = '';
-        for (let i = 0; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript;
-          if (event.results[i].isFinal) {
-            finalTranscript += transcript + ' ';
-          } else {
-            interimTranscript += transcript;
-          }
+    recognition.onresult = (event) => {
+      let interimTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscriptRef.current += event.results[i][0].transcript + ' ';
+        } else {
+          interimTranscript += event.results[i][0].transcript;
         }
-        form.setValue("symptoms", finalTranscript + interimTranscript);
-      };
+      }
+      form.setValue("symptoms", finalTranscriptRef.current + interimTranscript, { shouldValidate: true });
+    };
 
-      recognition.onerror = (event) => {
-        console.error("Speech recognition error", event.error);
-        toast({
-          variant: "destructive",
-          title: "Voice Input Error",
-          description: "Could not recognize audio. Please try again.",
-        });
-        setIsRecording(false);
-      };
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error", event.error);
+      toast({
+        variant: "destructive",
+        title: "Voice Input Error",
+        description: "Could not recognize audio. Please try again.",
+      });
+      setIsRecording(false);
+    };
 
-      recognition.onend = () => {
-        setIsRecording(false);
-      };
-    }
+    recognition.onend = () => {
+      setIsRecording(false);
+    };
 
     return () => {
       if (recognition) {
@@ -121,7 +121,7 @@ export function SymptomChecker() {
   
   useEffect(() => {
     if (recognition) {
-        recognition.lang = language === 'hi' ? 'hi-IN' : 'en-US';
+      recognition.lang = language === 'hi' ? 'hi-IN' : 'en-US';
     }
   }, [language]);
 
@@ -138,7 +138,7 @@ export function SymptomChecker() {
     if (isRecording) {
       recognition.stop();
     } else {
-      form.setValue("symptoms", ""); // Clear previous text
+      finalTranscriptRef.current = form.getValues("symptoms");
       recognition.start();
     }
   };
@@ -147,7 +147,6 @@ export function SymptomChecker() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (isRecording) {
       recognition?.stop();
-      setIsRecording(false);
     }
     setIsLoading(true);
     setResult(null);
