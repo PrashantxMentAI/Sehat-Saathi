@@ -77,7 +77,7 @@ export function SymptomChecker() {
     },
   });
   
-  const { handleSubmit, setValue, getValues, trigger } = form;
+  const { handleSubmit, setValue, trigger } = form;
 
   useEffect(() => {
     if (!recognition) return;
@@ -96,11 +96,11 @@ export function SymptomChecker() {
     recognition.onresult = (event) => {
       if (recognitionstopTimer.current) {
         clearTimeout(recognitionstopTimer.current);
-        recognitionstopTimer.current = null;
       }
 
       let interimTranscript = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
+      finalTranscriptRef.current = '';
+      for (let i = 0; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
           finalTranscriptRef.current += event.results[i][0].transcript.trim() + ' ';
         } else {
@@ -388,9 +388,3 @@ export function SymptomChecker() {
     </TooltipProvider>
   );
 }
-
-    
-
-    
-
-    
