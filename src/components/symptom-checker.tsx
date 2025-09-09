@@ -100,15 +100,14 @@ export function SymptomChecker() {
       }
 
       let interimTranscript = '';
-      finalTranscriptRef.current = getValues("symptoms");
       for (let i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
-          finalTranscriptRef.current = finalTranscriptRef.current.trim() + ' ' + event.results[i][0].transcript.trim();
+          finalTranscriptRef.current += event.results[i][0].transcript.trim() + ' ';
         } else {
           interimTranscript += event.results[i][0].transcript;
         }
       }
-      setValue("symptoms", finalTranscriptRef.current.trim() + ' ' + interimTranscript.trim(), { shouldValidate: true });
+      setValue("symptoms", finalTranscriptRef.current + interimTranscript, { shouldValidate: true });
 
       recognitionstopTimer.current = setTimeout(() => {
          recognition?.stop();
@@ -145,7 +144,7 @@ export function SymptomChecker() {
         clearTimeout(recognitionstopTimer.current);
       }
     };
-  }, [getValues, handleSubmit, setValue, toast, trigger]);
+  }, [handleSubmit, setValue, toast, trigger]);
   
   useEffect(() => {
     if (recognition) {
@@ -389,6 +388,8 @@ export function SymptomChecker() {
     </TooltipProvider>
   );
 }
+
+    
 
     
 
