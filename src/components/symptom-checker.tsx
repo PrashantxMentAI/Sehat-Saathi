@@ -43,6 +43,7 @@ export function SymptomChecker() {
   const [showHistory, setShowHistory] = useState(false);
   const { toast } = useToast();
   const finalTranscriptRef = useRef('');
+  const recognitionstopTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     try {
@@ -75,6 +76,8 @@ export function SymptomChecker() {
       symptoms: "",
     },
   });
+  
+  const { handleSubmit, setValue, getValues, trigger } = form;
 
   useEffect(() => {
     if (!recognition) return;
@@ -84,18 +87,32 @@ export function SymptomChecker() {
 
     recognition.onstart = () => {
       setIsRecording(true);
+      if (recognitionstopTimer.current) {
+        clearTimeout(recognitionstopTimer.current);
+        recognitionstopTimer.current = null;
+      }
     };
 
     recognition.onresult = (event) => {
+      if (recognitionstopTimer.current) {
+        clearTimeout(recognitionstopTimer.current);
+        recognitionstopTimer.current = null;
+      }
+
       let interimTranscript = '';
+      finalTranscriptRef.current = getValues("symptoms");
       for (let i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
-          finalTranscriptRef.current += event.results[i][0].transcript + ' ';
+          finalTranscriptRef.current = finalTranscriptRef.current.trim() + ' ' + event.results[i][0].transcript.trim();
         } else {
           interimTranscript += event.results[i][0].transcript;
         }
       }
-      form.setValue("symptoms", finalTranscriptRef.current + interimTranscript, { shouldValidate: true });
+      setValue("symptoms", finalTranscriptRef.current.trim() + ' ' + interimTranscript.trim(), { shouldValidate: true });
+
+      recognitionstopTimer.current = setTimeout(() => {
+         recognition?.stop();
+      }, 1500);
     };
 
     recognition.onerror = (event) => {
@@ -108,16 +125,27 @@ export function SymptomChecker() {
       setIsRecording(false);
     };
 
-    recognition.onend = () => {
+    recognition.onend = async () => {
       setIsRecording(false);
+      if (recognitionstopTimer.current) {
+        clearTimeout(recognitionstopTimer.current);
+        recognitionstopTimer.current = null;
+      }
+      const isFormValid = await trigger("symptoms");
+      if (isFormValid) {
+        handleSubmit(onSubmit)();
+      }
     };
 
     return () => {
       if (recognition) {
         recognition.stop();
       }
+       if (recognitionstopTimer.current) {
+        clearTimeout(recognitionstopTimer.current);
+      }
     };
-  }, [form, toast]);
+  }, [getValues, handleSubmit, setValue, toast, trigger]);
   
   useEffect(() => {
     if (recognition) {
@@ -138,7 +166,8 @@ export function SymptomChecker() {
     if (isRecording) {
       recognition.stop();
     } else {
-      finalTranscriptRef.current = form.getValues("symptoms");
+      finalTranscriptRef.current = "";
+      setValue("symptoms", "");
       recognition.start();
     }
   };
@@ -360,5 +389,7 @@ export function SymptomChecker() {
     </TooltipProvider>
   );
 }
+
+    
 
     
