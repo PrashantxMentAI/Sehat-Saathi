@@ -10,7 +10,6 @@
  */
 
 import {ai} from '@/ai/genkit';
-import { googleAI } from '@genkit-ai/google-genai';
 import {z} from 'genkit';
 
 const SymptomCheckerInputSchema = z.object({
@@ -40,7 +39,7 @@ export async function symptomChecker(input: SymptomCheckerInput): Promise<Sympto
 
 const prompt = ai.definePrompt({
   name: 'symptomCheckerPrompt',
-  model: googleAI('gemini-pro'),
+  model: 'gemini-pro',
   input: {schema: SymptomCheckerInputSchema},
   output: {schema: SymptomCheckerOutputSchema},
   prompt: `You are a helpful AI that provides a list of potential health concerns and a simple, line-by-line list of precautions. Your goal is to be a "health friend," not a technical machine.
