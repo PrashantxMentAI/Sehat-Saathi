@@ -41,7 +41,6 @@ const prompt = ai.definePrompt({
   name: 'symptomCheckerPrompt',
   input: {schema: SymptomCheckerInputSchema},
   output: {schema: SymptomCheckerOutputSchema},
-  model: 'gemini-1.0-pro',
   prompt: `You are a helpful AI that provides a list of potential health concerns and a simple, line-by-line list of precautions. Your goal is to be a "health friend," not a technical machine.
 
   **Your response MUST follow this structure:**
