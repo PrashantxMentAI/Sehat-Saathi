@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Bot, User, Sparkles, Search, Mic, Trash2, History, ShieldQuestion } from "lucide-react";
-import { symptomChecker, type SymptomCheckerOutput } from "@/ai/flows/symptom-checker";
+// Removed AI flow import
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -17,6 +17,12 @@ import { useLanguage } from "@/contexts/language-context";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { parseAIResponse } from "@/lib/utils";
+
+// Dummy result structure for non-AI version
+interface SymptomCheckerOutput {
+  potentialHealthConcerns: string;
+  precautionsAndSuggestions: string;
+}
 
 // A global variable to hold the speech recognition instance
 let recognition: SpeechRecognition | null = null;
@@ -45,25 +51,8 @@ export function SymptomChecker() {
   const finalTranscriptRef = useRef('');
   const recognitionstopTimer = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    try {
-      const storedHistory = localStorage.getItem("symptomCheckerHistory");
-      if (storedHistory) {
-        setHistory(JSON.parse(storedHistory));
-      }
-    } catch (error) {
-      console.error("Failed to load history from localStorage", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem("symptomCheckerHistory", JSON.stringify(history));
-    } catch (error) {
-      console.error("Failed to save history to localStorage", error);
-    }
-  }, [history]);
-
+  // Removed history logic as it's not relevant for non-AI version
+  
   const formSchema = z.object({
     symptoms: z.string().min(10, {
       message: t.symptoms_error,
@@ -79,11 +68,12 @@ export function SymptomChecker() {
   
   const { handleSubmit, setValue, trigger } = form;
 
-  useEffect(() => {
+    useEffect(() => {
     if (!recognition) return;
 
     recognition.continuous = true;
     recognition.interimResults = true;
+    recognition.lang = language === 'hi' ? 'hi-IN' : 'en-US';
 
     recognition.onstart = () => {
       setIsRecording(true);
@@ -144,13 +134,7 @@ export function SymptomChecker() {
         clearTimeout(recognitionstopTimer.current);
       }
     };
-  }, [handleSubmit, setValue, toast, trigger]);
-  
-  useEffect(() => {
-    if (recognition) {
-      recognition.lang = language === 'hi' ? 'hi-IN' : 'en-US';
-    }
-  }, [language]);
+  }, [handleSubmit, setValue, toast, trigger, language]);
 
   const handleVoiceInput = () => {
     if (!recognition) {
@@ -178,34 +162,23 @@ export function SymptomChecker() {
     }
     setIsLoading(true);
     setResult(null);
-    try {
-      const response = await symptomChecker({ symptoms: values.symptoms });
-      setResult(response);
-      const newHistoryItem: HistoryItem = {
-        id: new Date().toISOString(),
-        symptoms: values.symptoms,
-        result: response,
-        timestamp: new Date().toLocaleString(),
-      };
-      setHistory(prevHistory => [newHistoryItem, ...prevHistory]);
-      form.reset();
-    } catch (error) {
-      console.error("Symptom checker error:", error);
-      toast({
-        variant: "destructive",
-        title: "An Error Occurred",
-        description: "Failed to get results. Please try again later.",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+
+    // Simulate a delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Static response instead of calling AI
+    const staticResponse: SymptomCheckerOutput = {
+      potentialHealthConcerns: language === 'en' ? "Please consult a doctor." : "कृपया डॉक्टर से सलाह लें।",
+      precautionsAndSuggestions: language === 'en' 
+        ? `Based on your symptoms, we recommend consulting a healthcare professional for an accurate diagnosis. Self-diagnosis can be misleading.\n\n**When to see a doctor urgently:**\n- If symptoms are severe or worsen rapidly.\n- If you have difficulty breathing or chest pain.`
+        : `आपके लक्षणों के आधार पर, हम एक सटीक निदान के लिए स्वास्थ्य देखभाल पेशेवर से परामर्श करने की सलाह देते हैं। स्व-निदान भ्रामक हो सकता है।\n\n**तत्काल डॉक्टर को कब दिखाएँ:**\n- यदि लक्षण गंभीर हैं या तेजी से बिगड़ते हैं।\n- यदि आपको सांस लेने में कठिनाई या सीने में दर्द हो।`
+    };
+
+    setResult(staticResponse);
+    form.reset();
+    setIsLoading(false);
   }
 
-  const handleClearHistory = () => {
-    setHistory([]);
-    setShowHistory(false);
-  };
-  
   const toggleHistory = () => {
     setShowHistory(prev => !prev);
   }
@@ -224,18 +197,6 @@ export function SymptomChecker() {
               <strong>{language === 'en' ? "Please consult a qualified doctor for medical advice." : "कृपया चिकित्सकीय सलाह के लिए एक योग्य चिकित्सक से परामर्श करें।"}</strong>
             </CardDescription>
           </div>
-          {history.length > 0 && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={toggleHistory}>
-                  <History className="h-5 w-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{showHistory ? t.history_hide : t.history_show}</p>
-              </TooltipContent>
-            </Tooltip>
-          )}
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -323,68 +284,6 @@ export function SymptomChecker() {
           </CardFooter>
         )}
       </Card>
-
-      {showHistory && history.length > 0 && (
-          <Card className="shadow-lg rounded-lg mt-8">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle className="flex items-center gap-2 text-2xl font-bold">
-                  <History className="text-primary" />
-                  {t.history_title}
-                </CardTitle>
-                <CardDescription>{t.history_description}</CardDescription>
-              </div>
-              <Button variant="outline" size="sm" onClick={handleClearHistory}>
-                <Trash2 className="mr-2 h-4 w-4" />
-                {t.history_clear}
-              </Button>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {history.map((item) => (
-                <div key={item.id}>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="font-semibold flex items-center gap-2 mb-2">
-                        <User className="h-5 w-5 text-muted-foreground" />
-                        <span>{t.history_your_symptoms}</span>
-                      </div>
-                      <p className="text-muted-foreground text-sm italic">"{item.symptoms}"</p>
-                    </div>
-                    <div>
-                      <div className="font-semibold flex items-center gap-2 mb-2">
-                        <Bot className="h-5 w-5 text-primary" />
-                         <span>{t.history_ai_response}</span>
-                      </div>
-                      <div className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300 space-y-4">
-                        {item.result.potentialHealthConcerns && (
-                            <div>
-                                <h4 className="font-medium text-sm">{t.possible_causes}</h4>
-                                <ul className="list-disc pl-5 space-y-1">
-                                  {item.result.potentialHealthConcerns.split('\n').map((concern, index) => concern.trim() && (
-                                    <li key={index}>{concern.replace(/^- /, '').trim()}</li>
-                                  ))}
-                                </ul>
-                            </div>
-                        )}
-                        {item.result.precautionsAndSuggestions && (
-                            <div>
-                                <h4 className="font-medium text-sm">{t.precautions_title}</h4>
-                                <div
-                                  className="prose prose-sm max-w-none text-card-foreground dark:text-gray-300"
-                                  dangerouslySetInnerHTML={{ __html: parseAIResponse(item.result.precautionsAndSuggestions) }}
-                                />
-                            </div>
-                        )}
-                      </div>
-                    </div>
-                     <p className="text-xs text-right text-muted-foreground">{item.timestamp}</p>
-                  </div>
-                  <Separator className="my-6" />
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        )}
     </TooltipProvider>
   );
 }
