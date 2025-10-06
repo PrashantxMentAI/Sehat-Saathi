@@ -168,11 +168,13 @@ export function SymptomChecker() {
     
     // Static response instead of calling AI
     const staticResponse: SymptomCheckerOutput = {
-      potentialHealthConcerns: language === 'en' ? "Please consult a doctor." : "कृपया डॉक्टर से सलाह लें।",
-      precautionsAndSuggestions: language === 'en' 
-        ? `Based on your symptoms, we recommend consulting a healthcare professional for an accurate diagnosis. Self-diagnosis can be misleading.\n\n**When to see a doctor urgently:**\n- If symptoms are severe or worsen rapidly.\n- If you have difficulty breathing or chest pain.`
-        : `आपके लक्षणों के आधार पर, हम एक सटीक निदान के लिए स्वास्थ्य देखभाल पेशेवर से परामर्श करने की सलाह देते हैं। स्व-निदान भ्रामक हो सकता है।\n\n**तत्काल डॉक्टर को कब दिखाएँ:**\n- यदि लक्षण गंभीर हैं या तेजी से बिगड़ते हैं।\n- यदि आपको सांस लेने में कठिनाई या सीने में दर्द हो।`
-    };
+        potentialHealthConcerns: language === 'en'
+          ? "General advice: Please consult a doctor for an accurate diagnosis."
+          : "सामान्य सलाह: सटीक निदान के लिए कृपया डॉक्टर से सलाह लें।",
+        precautionsAndSuggestions: language === 'en'
+          ? `Self-diagnosis can be misleading. A healthcare professional can provide an accurate diagnosis.\n\n**When to see a doctor urgently:**\n- If symptoms are severe or worsen rapidly.\n- If you have difficulty breathing or chest pain.\n- If you have a high fever that does not go down.`
+          : `स्व-निदान भ्रामक हो सकता है। एक स्वास्थ्य देखभाल पेशेवर सटीक निदान प्रदान कर सकता है।\n\n**तत्काल डॉक्टर को कब दिखाएँ:**\n- यदि लक्षण गंभीर हैं या तेजी से बिगड़ते हैं।\n- यदि आपको सांस लेने में कठिनाई या सीने में दर्द हो।\n- यदि आपको तेज बुखार है जो कम नहीं हो रहा है।`
+      };
 
     setResult(staticResponse);
     form.reset();
