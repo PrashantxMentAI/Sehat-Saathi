@@ -39,6 +39,7 @@ export async function symptomChecker(input: SymptomCheckerInput): Promise<Sympto
 
 const prompt = ai.definePrompt({
   name: 'symptomCheckerPrompt',
+  model: 'googleai/gemini-pro',
   input: {schema: SymptomCheckerInputSchema},
   output: {schema: SymptomCheckerOutputSchema},
   prompt: `You are a helpful AI that provides a list of potential health concerns and a simple, line-by-line list of precautions. Your goal is to be a "health friend," not a technical machine.
