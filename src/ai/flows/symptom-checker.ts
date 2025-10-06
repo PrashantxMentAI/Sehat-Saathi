@@ -34,13 +34,7 @@ const SymptomCheckerOutputSchema = z.object({
 export type SymptomCheckerOutput = z.infer<typeof SymptomCheckerOutputSchema>;
 
 export async function symptomChecker(input: SymptomCheckerInput): Promise<SymptomCheckerOutput> {
-  // This function is now a placeholder and does not call the AI flow.
-  // This is to prevent the "Model not found" error.
-  console.warn("AI symptom checker is currently disabled due to a configuration issue. Returning a default response.");
-  return Promise.resolve({
-    potentialHealthConcerns: "Consult a doctor for an accurate diagnosis.",
-    precautionsAndSuggestions: "We recommend seeing a healthcare professional. This AI feature is temporarily disabled."
-  });
+  return symptomCheckerFlow(input);
 }
 
 const prompt = ai.definePrompt({

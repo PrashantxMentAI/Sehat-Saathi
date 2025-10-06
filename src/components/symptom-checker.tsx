@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Bot, User, Sparkles, Search, Mic, Trash2, History, ShieldQuestion } from "lucide-react";
-// Removed AI flow import
+import { symptomChecker, type SymptomCheckerOutput } from "@/ai/flows/symptom-checker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -17,12 +17,6 @@ import { useLanguage } from "@/contexts/language-context";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { parseAIResponse } from "@/lib/utils";
-
-// Dummy result structure for non-AI version
-interface SymptomCheckerOutput {
-  potentialHealthConcerns: string;
-  precautionsAndSuggestions: string;
-}
 
 // A global variable to hold the speech recognition instance
 let recognition: SpeechRecognition | null = null;
@@ -51,7 +45,29 @@ export function SymptomChecker() {
   const finalTranscriptRef = useRef('');
   const recognitionstopTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Removed history logic as it's not relevant for non-AI version
+  useEffect(() => {
+    try {
+      const storedHistory = localStorage.getItem("symptomHistory");
+      if (storedHistory) {
+        setHistory(JSON.parse(storedHistory));
+      }
+    } catch (error) {
+      console.error("Failed to parse history from localStorage", error);
+      localStorage.removeItem("symptomHistory");
+    }
+  }, []);
+
+  const addToHistory = (symptoms: string, result: SymptomCheckerOutput) => {
+    const newHistoryItem: HistoryItem = {
+      id: new Date().toISOString(),
+      symptoms,
+      result,
+      timestamp: new Date().toLocaleString(),
+    };
+    const updatedHistory = [newHistoryItem, ...history].slice(0, 5); // Keep last 5
+    setHistory(updatedHistory);
+    localStorage.setItem("symptomHistory", JSON.stringify(updatedHistory));
+  };
   
   const formSchema = z.object({
     symptoms: z.string().min(10, {
@@ -163,22 +179,22 @@ export function SymptomChecker() {
     setIsLoading(true);
     setResult(null);
 
-    // Simulate a delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Static response instead of calling AI
-    const staticResponse: SymptomCheckerOutput = {
-        potentialHealthConcerns: language === 'en'
-          ? "General advice: Please consult a doctor for an accurate diagnosis."
-          : "सामान्य सलाह: सटीक निदान के लिए कृपया डॉक्टर से सलाह लें।",
-        precautionsAndSuggestions: language === 'en'
-          ? `Self-diagnosis can be misleading. A healthcare professional can provide an accurate diagnosis.\n\n**When to see a doctor urgently:**\n- If symptoms are severe or worsen rapidly.\n- If you have difficulty breathing or chest pain.\n- If you have a high fever that does not go down.`
-          : `स्व-निदान भ्रामक हो सकता है। एक स्वास्थ्य देखभाल पेशेवर सटीक निदान प्रदान कर सकता है।\n\n**तत्काल डॉक्टर को कब दिखाएँ:**\n- यदि लक्षण गंभीर हैं या तेजी से बिगड़ते हैं।\n- यदि आपको सांस लेने में कठिनाई या सीने में दर्द हो।\n- यदि आपको तेज बुखार है जो कम नहीं हो रहा है।`
-      };
-
-    setResult(staticResponse);
-    form.reset();
-    setIsLoading(false);
+    try {
+      const aiResult = await symptomChecker({symptoms: values.symptoms});
+      setResult(aiResult);
+      addToHistory(values.symptoms, aiResult);
+    } catch (e: any) {
+      console.error(e);
+      toast({
+        variant: 'destructive',
+        title: 'An unexpected error occurred.',
+        description:
+          'The AI model could not be reached. Please check your configuration.',
+      });
+    } finally {
+      setIsLoading(false);
+      form.reset();
+    }
   }
 
   const toggleHistory = () => {
