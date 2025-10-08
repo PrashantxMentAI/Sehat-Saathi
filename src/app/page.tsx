@@ -14,6 +14,7 @@ import { Faq } from "@/components/faq";
 import { DailyHealthTip } from "@/components/daily-health-tip";
 import { HeartPulse, Syringe, Stethoscope } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
+import { HealthScore } from "@/components/health-score";
 
 export default function Home() {
   const { language, t } = useLanguage();
@@ -78,6 +79,7 @@ export default function Home() {
 
         <div className="container mx-auto p-4 md:p-8 grid gap-12">
           <DailyHealthTip />
+          <HealthScore />
           <SymptomChecker />
           <HealthAlerts />
           <HealthyLifestyleTips />
