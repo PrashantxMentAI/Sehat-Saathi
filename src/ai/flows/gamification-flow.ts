@@ -32,7 +32,7 @@ export async function generateGamificationMessage(
 
 const prompt = ai.definePrompt({
   name: 'gamificationPrompt',
-  model: 'gemini-pro',
+  model: 'gemini-1.5-flash-latest',
   input: { schema: GamificationInputSchema },
   output: { schema: GamificationOutputSchema },
   prompt: `User health points: {{healthPoints}}
