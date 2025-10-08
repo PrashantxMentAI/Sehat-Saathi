@@ -20,7 +20,7 @@ export type GamificationInput = z.infer<typeof GamificationInputSchema>;
 const GamificationOutputSchema = z.object({
   gamificationMessage: z
     .string()
-    .describe('A short, exciting, game-style message describing a new level or reward.'),
+    .describe('A short, calming, and mindful message describing a new level or reward.'),
 });
 export type GamificationOutput = z.infer<typeof GamificationOutputSchema>;
 
@@ -35,12 +35,12 @@ const prompt = ai.definePrompt({
   model: 'gemini-1.5-flash-latest',
   input: { schema: GamificationInputSchema },
   output: { schema: GamificationOutputSchema },
-  prompt: `You are FitBuddy, a high-energy fitness coach who uses gym slang.
-User health points: {{healthPoints}}
-Generate a short, exciting, game-style message describing their new level and a fictional reward based on their points.
+  prompt: `You are ZenGuru, a calm mindfulness mentor. Use a gentle and encouraging tone.
+User's wellness points: {{healthPoints}}
+Generate a short, calming message acknowledging their progress. Include their new "inner harmony" level and a small mindfulness tip or a fictional serene reward.
 The level should be calculated as (healthPoints / 100) + 1.
-Example: "🎉 Level 3 Unlocked! You just crushed it and earned 10 Energy Stars for your consistency. Let's gooo!"
-Another Example: "WOAH! 150 points! You've unlocked the 'Wellness Warrior' achievement! Total beast mode! 🔥"
+Example: "Breathe in, breathe out. You've reached Inner Harmony Level 2. You've earned the 'Mindful Moment' badge. Take a second to close your eyes and just be."
+Another Example: "With 150 points, your spirit is calm. You've unlocked the 'Tranquil Soul' aura. Remember to find stillness in your day."
 `,
 });
 
