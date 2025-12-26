@@ -27,7 +27,11 @@ export type HabitSuggesterOutput = z.infer<typeof HabitSuggesterOutputSchema>;
 export async function suggestHabit(
   input: HabitSuggesterInput
 ): Promise<HabitSuggesterOutput> {
-  return habitSuggesterFlow(input);
+  // return habitSuggesterFlow(input);
+  // TEMPORARY FIX: Return a placeholder to avoid crashing from API key permissions.
+  return {
+    suggestion: "AI Model Not Available → Please check your Google Cloud project settings to enable this feature. → The journey to a working app begins with a single configuration step."
+  };
 }
 
 const prompt = ai.definePrompt({
@@ -41,7 +45,7 @@ Keep the suggestion simple and positive.
 
 User Data:
 - Slept for {{sleepHours}} hours
-- Walked {{steps}} steps
+- Walked for {{steps}} steps
 - Mood: {{mood}}
 
 Your response MUST be in the following format, with "→" as the separator:

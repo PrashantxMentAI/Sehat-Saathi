@@ -34,7 +34,12 @@ const SymptomCheckerOutputSchema = z.object({
 export type SymptomCheckerOutput = z.infer<typeof SymptomCheckerOutputSchema>;
 
 export async function symptomChecker(input: SymptomCheckerInput): Promise<SymptomCheckerOutput> {
-  return symptomCheckerFlow(input);
+  // return symptomCheckerFlow(input);
+  // TEMPORARY FIX: Return a placeholder to avoid crashing from API key permissions.
+  return {
+    potentialHealthConcerns: "AI Model Not Available\n- Please check Google Cloud project settings.",
+    precautionsAndSuggestions: "The AI model could not be reached. This is likely due to an issue with the API key's permissions, billing, or region settings in your Google Cloud project. Please resolve the configuration issue to enable this feature."
+  };
 }
 
 const prompt = ai.definePrompt({
